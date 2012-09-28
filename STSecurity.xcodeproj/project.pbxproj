@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C55A1531615DA9E00C54B8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1521615DA9E00C54B8C /* UIKit.framework */; };
+		2C55A1561615DABF00C54B8C /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
+		2C55A1581615DAD000C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
+		2C55A1591616907E00C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
+		2C55A15A161691AC00C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
+		2CBC57E11615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
+		2CBC57E61615D8C000FF15E9 /* STSecurity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurity.h */; };
+		2CBC57E81615D8C000FF15E9 /* STSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurity.m */; };
+		2CBC57F01615D8C000FF15E9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */; };
+		2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
+		2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
+		2CBC57FF1615D8C000FF15E9 /* STSecurityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */; };
+		2CBC580F1615D8E400FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
+		2CBC58111615D8E400FF15E9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC58101615D8E400FF15E9 /* CoreGraphics.framework */; };
+		2CBC58191615D8E500FF15E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC58181615D8E500FF15E9 /* main.m */; };
+		2CBC581D1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC581C1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.m */; };
+		2CBC581F1615D8E500FF15E9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBC581E1615D8E500FF15E9 /* Default.png */; };
+		2CBC58211615D8E500FF15E9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBC58201615D8E500FF15E9 /* Default@2x.png */; };
+		2CBC58231615D8E500FF15E9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBC58221615D8E500FF15E9 /* Default-568h@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2C55A1541615DABC00C54B8C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CBC57D41615D8C000FF15E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CBC57DC1615D8C000FF15E9;
+			remoteInfo = STSecurity;
+		};
+		2CBC57F41615D8C000FF15E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CBC57D41615D8C000FF15E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CBC57DC1615D8C000FF15E9;
+			remoteInfo = STSecurity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2CBC57DB1615D8C000FF15E9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				2CBC57E61615D8C000FF15E9 /* STSecurity.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2C55A1521615DA9E00C54B8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2C55A1571615DAD000C54B8C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2CBC57E51615D8C000FF15E9 /* STSecurity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurity.h; sourceTree = "<group>"; };
+		2CBC57E71615D8C000FF15E9 /* STSecurity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurity.m; sourceTree = "<group>"; };
+		2CBC57EE1615D8C000FF15E9 /* STSecurityTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STSecurityTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STSecurityTests-Info.plist"; sourceTree = "<group>"; };
+		2CBC57FD1615D8C000FF15E9 /* STSecurityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityTests.h; sourceTree = "<group>"; };
+		2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityTests.m; sourceTree = "<group>"; };
+		2CBC580C1615D8E400FF15E9 /* STSecurityDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STSecurityDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CBC58101615D8E400FF15E9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2CBC58141615D8E400FF15E9 /* STSecurityDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STSecurityDemo-Info.plist"; sourceTree = "<group>"; };
+		2CBC58181615D8E500FF15E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2CBC581B1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityDemoApplicationDelegate.h; sourceTree = "<group>"; };
+		2CBC581C1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityDemoApplicationDelegate.m; sourceTree = "<group>"; };
+		2CBC581E1615D8E500FF15E9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		2CBC58201615D8E500FF15E9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		2CBC58221615D8E500FF15E9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2CBC57DA1615D8C000FF15E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC57E11615D8C000FF15E9 /* Foundation.framework in Frameworks */,
+				2C55A1581615DAD000C54B8C /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CBC57EA1615D8C000FF15E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC57F01615D8C000FF15E9 /* SenTestingKit.framework in Frameworks */,
+				2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */,
+				2C55A1591616907E00C54B8C /* Security.framework in Frameworks */,
+				2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CBC58091615D8E400FF15E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C55A1531615DA9E00C54B8C /* UIKit.framework in Frameworks */,
+				2CBC580F1615D8E400FF15E9 /* Foundation.framework in Frameworks */,
+				2CBC58111615D8E400FF15E9 /* CoreGraphics.framework in Frameworks */,
+				2C55A15A161691AC00C54B8C /* Security.framework in Frameworks */,
+				2C55A1561615DABF00C54B8C /* libSTSecurity.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2CBC57D21615D8C000FF15E9 = {
+			isa = PBXGroup;
+			children = (
+				2CBC57E21615D8C000FF15E9 /* STSecurity */,
+				2CBC58121615D8E400FF15E9 /* STSecurityDemo */,
+				2CBC57F71615D8C000FF15E9 /* STSecurityTests */,
+				2CBC57DF1615D8C000FF15E9 /* Frameworks */,
+				2CBC57DE1615D8C000FF15E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2CBC57DE1615D8C000FF15E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */,
+				2CBC57EE1615D8C000FF15E9 /* STSecurityTests.octest */,
+				2CBC580C1615D8E400FF15E9 /* STSecurityDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2CBC57DF1615D8C000FF15E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC57E01615D8C000FF15E9 /* Foundation.framework */,
+				2C55A1521615DA9E00C54B8C /* UIKit.framework */,
+				2CBC58101615D8E400FF15E9 /* CoreGraphics.framework */,
+				2C55A1571615DAD000C54B8C /* Security.framework */,
+				2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2CBC57E21615D8C000FF15E9 /* STSecurity */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC57E51615D8C000FF15E9 /* STSecurity.h */,
+				2CBC57E71615D8C000FF15E9 /* STSecurity.m */,
+			);
+			path = STSecurity;
+			sourceTree = "<group>";
+		};
+		2CBC57F71615D8C000FF15E9 /* STSecurityTests */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */,
+				2CBC57FD1615D8C000FF15E9 /* STSecurityTests.h */,
+				2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */,
+			);
+			path = STSecurityTests;
+			sourceTree = "<group>";
+		};
+		2CBC58121615D8E400FF15E9 /* STSecurityDemo */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC58181615D8E500FF15E9 /* main.m */,
+				2CBC581B1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.h */,
+				2CBC581C1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.m */,
+				2CBC58131615D8E400FF15E9 /* Supporting Files */,
+			);
+			path = STSecurityDemo;
+			sourceTree = "<group>";
+		};
+		2CBC58131615D8E400FF15E9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2CBC58141615D8E400FF15E9 /* STSecurityDemo-Info.plist */,
+				2CBC581E1615D8E500FF15E9 /* Default.png */,
+				2CBC58201615D8E500FF15E9 /* Default@2x.png */,
+				2CBC58221615D8E500FF15E9 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2CBC57DC1615D8C000FF15E9 /* STSecurity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CBC58021615D8C000FF15E9 /* Build configuration list for PBXNativeTarget "STSecurity" */;
+			buildPhases = (
+				2CBC57D91615D8C000FF15E9 /* Sources */,
+				2CBC57DA1615D8C000FF15E9 /* Frameworks */,
+				2CBC57DB1615D8C000FF15E9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = STSecurity;
+			productName = STSecurity;
+			productReference = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2CBC57ED1615D8C000FF15E9 /* STSecurityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CBC58051615D8C000FF15E9 /* Build configuration list for PBXNativeTarget "STSecurityTests" */;
+			buildPhases = (
+				2CBC57E91615D8C000FF15E9 /* Sources */,
+				2CBC57EA1615D8C000FF15E9 /* Frameworks */,
+				2CBC57EB1615D8C000FF15E9 /* Resources */,
+				2CBC57EC1615D8C000FF15E9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2CBC57F51615D8C000FF15E9 /* PBXTargetDependency */,
+			);
+			name = STSecurityTests;
+			productName = STSecurityTests;
+			productReference = 2CBC57EE1615D8C000FF15E9 /* STSecurityTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		2CBC580B1615D8E400FF15E9 /* STSecurityDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CBC58241615D8E500FF15E9 /* Build configuration list for PBXNativeTarget "STSecurityDemo" */;
+			buildPhases = (
+				2CBC58081615D8E400FF15E9 /* Sources */,
+				2CBC58091615D8E400FF15E9 /* Frameworks */,
+				2CBC580A1615D8E400FF15E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2C55A1551615DABC00C54B8C /* PBXTargetDependency */,
+			);
+			name = STSecurityDemo;
+			productName = STSecurityDemo;
+			productReference = 2CBC580C1615D8E400FF15E9 /* STSecurityDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2CBC57D41615D8C000FF15E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Scott Talbot";
+			};
+			buildConfigurationList = 2CBC57D71615D8C000FF15E9 /* Build configuration list for PBXProject "STSecurity" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2CBC57D21615D8C000FF15E9;
+			productRefGroup = 2CBC57DE1615D8C000FF15E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2CBC57DC1615D8C000FF15E9 /* STSecurity */,
+				2CBC580B1615D8E400FF15E9 /* STSecurityDemo */,
+				2CBC57ED1615D8C000FF15E9 /* STSecurityTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2CBC57EB1615D8C000FF15E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CBC580A1615D8E400FF15E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC581F1615D8E500FF15E9 /* Default.png in Resources */,
+				2CBC58211615D8E500FF15E9 /* Default@2x.png in Resources */,
+				2CBC58231615D8E500FF15E9 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2CBC57EC1615D8C000FF15E9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2CBC57D91615D8C000FF15E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC57E81615D8C000FF15E9 /* STSecurity.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CBC57E91615D8C000FF15E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC57FF1615D8C000FF15E9 /* STSecurityTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CBC58081615D8E400FF15E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CBC58191615D8E500FF15E9 /* main.m in Sources */,
+				2CBC581D1615D8E500FF15E9 /* STSecurityDemoApplicationDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2C55A1551615DABC00C54B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CBC57DC1615D8C000FF15E9 /* STSecurity */;
+			targetProxy = 2C55A1541615DABC00C54B8C /* PBXContainerItemProxy */;
+		};
+		2CBC57F51615D8C000FF15E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CBC57DC1615D8C000FF15E9 /* STSecurity */;
+			targetProxy = 2CBC57F41615D8C000FF15E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2CBC58001615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2CBC58011615D8C000FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
+				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2CBC58031615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/STSecurity.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = STSecurity;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2CBC58041615D8C000FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/STSecurity.dst;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = STSecurity;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2CBC58061615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				INFOPLIST_FILE = "STSecurityTests/STSecurityTests-Info.plist";
+				PRODUCT_NAME = STSecurityTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		2CBC58071615D8C000FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				INFOPLIST_FILE = "STSecurityTests/STSecurityTests-Info.plist";
+				PRODUCT_NAME = STSecurityTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		2CBC58251615D8E500FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				INFOPLIST_FILE = "STSecurityDemo/STSecurityDemo-Info.plist";
+				PRODUCT_NAME = STSecurityDemo;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2CBC58261615D8E500FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				INFOPLIST_FILE = "STSecurityDemo/STSecurityDemo-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PRODUCT_NAME = STSecurityDemo;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CBC57D71615D8C000FF15E9 /* Build configuration list for PBXProject "STSecurity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CBC58001615D8C000FF15E9 /* Debug */,
+				2CBC58011615D8C000FF15E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CBC58021615D8C000FF15E9 /* Build configuration list for PBXNativeTarget "STSecurity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CBC58031615D8C000FF15E9 /* Debug */,
+				2CBC58041615D8C000FF15E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CBC58051615D8C000FF15E9 /* Build configuration list for PBXNativeTarget "STSecurityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CBC58061615D8C000FF15E9 /* Debug */,
+				2CBC58071615D8C000FF15E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2CBC58241615D8E500FF15E9 /* Build configuration list for PBXNativeTarget "STSecurityDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CBC58251615D8E500FF15E9 /* Debug */,
+				2CBC58261615D8E500FF15E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2CBC57D41615D8C000FF15E9 /* Project object */;
+}
