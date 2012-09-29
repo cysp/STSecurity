@@ -13,12 +13,12 @@
 		2C55A1591616907E00C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
 		2C55A15A161691AC00C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
 		2CBC57E11615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
-		2CBC57E61615D8C000FF15E9 /* STSecurity.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurity.h */; };
-		2CBC57E81615D8C000FF15E9 /* STSecurity.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurity.m */; };
+		2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; };
+		2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
 		2CBC57F01615D8C000FF15E9 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */; };
 		2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
 		2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
-		2CBC57FF1615D8C000FF15E9 /* STSecurityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */; };
+		2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */; };
 		2CBC580F1615D8E400FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
 		2CBC58111615D8E400FF15E9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC58101615D8E400FF15E9 /* CoreGraphics.framework */; };
 		2CBC58191615D8E500FF15E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC58181615D8E500FF15E9 /* main.m */; };
@@ -52,7 +52,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				2CBC57E61615D8C000FF15E9 /* STSecurity.h in CopyFiles */,
+				2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,13 +63,13 @@
 		2C55A1571615DAD000C54B8C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2CBC57E51615D8C000FF15E9 /* STSecurity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurity.h; sourceTree = "<group>"; };
-		2CBC57E71615D8C000FF15E9 /* STSecurity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurity.m; sourceTree = "<group>"; };
+		2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomization.h; sourceTree = "<group>"; };
+		2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomization.m; sourceTree = "<group>"; };
 		2CBC57EE1615D8C000FF15E9 /* STSecurityTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STSecurityTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STSecurityTests-Info.plist"; sourceTree = "<group>"; };
-		2CBC57FD1615D8C000FF15E9 /* STSecurityTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityTests.h; sourceTree = "<group>"; };
-		2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityTests.m; sourceTree = "<group>"; };
+		2CBC57FD1615D8C000FF15E9 /* STSecurityRandomizationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomizationTests.h; sourceTree = "<group>"; };
+		2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomizationTests.m; sourceTree = "<group>"; };
 		2CBC580C1615D8E400FF15E9 /* STSecurityDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STSecurityDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC58101615D8E400FF15E9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2CBC58141615D8E400FF15E9 /* STSecurityDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STSecurityDemo-Info.plist"; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 		2CBC57E21615D8C000FF15E9 /* STSecurity */ = {
 			isa = PBXGroup;
 			children = (
-				2CBC57E51615D8C000FF15E9 /* STSecurity.h */,
-				2CBC57E71615D8C000FF15E9 /* STSecurity.m */,
+				2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */,
+				2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */,
 			);
 			path = STSecurity;
 			sourceTree = "<group>";
@@ -163,8 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */,
-				2CBC57FD1615D8C000FF15E9 /* STSecurityTests.h */,
-				2CBC57FE1615D8C000FF15E9 /* STSecurityTests.m */,
+				2CBC57FD1615D8C000FF15E9 /* STSecurityRandomizationTests.h */,
+				2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */,
 			);
 			path = STSecurityTests;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CBC57E81615D8C000FF15E9 /* STSecurity.m in Sources */,
+				2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CBC57FF1615D8C000FF15E9 /* STSecurityTests.m in Sources */,
+				2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
