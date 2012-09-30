@@ -28,6 +28,7 @@ NSString * const STSecurityRandomizationErrorDomain = @"STSecurityRandomizationE
 
 	OSStatus err = SecRandomCopyBytes(NULL, count, bytes);
 	if (err != noErr) {
+		free(bytes), bytes = NULL;
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityRandomizationErrorDomain code:errno userInfo:nil];
 		}
