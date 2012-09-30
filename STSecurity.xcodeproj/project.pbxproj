@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1D8CC116186B6B009EB62A /* STSecurityKey.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A16F1616E6A400C54B8C /* STSecurityKey.h */; };
+		2C1D8CC316186B6F009EB62A /* STSecurityKeychainAccess.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */; };
+		2C1D8CC416186B72009EB62A /* STSecurityEncryption.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A1761617C70700C54B8C /* STSecurityEncryption.h */; };
 		2C55A1531615DA9E00C54B8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1521615DA9E00C54B8C /* UIKit.framework */; };
 		2C55A1561615DABF00C54B8C /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
 		2C55A1581615DAD000C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
@@ -57,6 +60,9 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				2C1D8CC416186B72009EB62A /* STSecurityEncryption.h in CopyFiles */,
+				2C1D8CC316186B6F009EB62A /* STSecurityKeychainAccess.h in CopyFiles */,
+				2C1D8CC116186B6B009EB62A /* STSecurityKey.h in CopyFiles */,
 				2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
