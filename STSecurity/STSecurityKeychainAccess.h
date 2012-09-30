@@ -15,10 +15,10 @@ extern NSString * const STSecurityKeychainAccessErrorDomain;
 
 NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 	STSecurityKeychainItemAccessibleWhenUnlocked = 0,
-	STSecurityKeychainItemAccessibleAfterFirstUnlock,
-	STSecurityKeychainItemAccessibleAlways,
 	STSecurityKeychainItemAccessibleWhenUnlockedThisDeviceOnly,
+	STSecurityKeychainItemAccessibleAfterFirstUnlock,
 	STSecurityKeychainItemAccessibleAfterFirstUnlockThisDeviceOnly,
+	STSecurityKeychainItemAccessibleAlways,
 	STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly,
 };
 

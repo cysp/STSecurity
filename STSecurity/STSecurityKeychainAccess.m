@@ -16,12 +16,24 @@
 NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError";
 
 
-CFTypeRef kSecAttrAccessibleWhenUnlocked;
-CFTypeRef kSecAttrAccessibleAfterFirstUnlock;
-CFTypeRef kSecAttrAccessibleAlways;
-CFTypeRef kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
-CFTypeRef kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
-CFTypeRef kSecAttrAccessibleAlwaysThisDeviceOnly;
+static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecurityKeychainItemAccessibility accessibility) {
+	switch (accessibility) {
+		case STSecurityKeychainItemAccessibleWhenUnlocked:
+			return kSecAttrAccessibleWhenUnlocked;
+		case STSecurityKeychainItemAccessibleWhenUnlockedThisDeviceOnly:
+			return kSecAttrAccessibleWhenUnlockedThisDeviceOnly;
+		case STSecurityKeychainItemAccessibleAfterFirstUnlock:
+			return kSecAttrAccessibleAfterFirstUnlock;
+		case STSecurityKeychainItemAccessibleAfterFirstUnlockThisDeviceOnly:
+			return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
+		case STSecurityKeychainItemAccessibleAlways:
+			return kSecAttrAccessibleAlways;
+		case STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly:
+			return kSecAttrAccessibleAlwaysThisDeviceOnly;
+	}
+	NSCAssert(0, @"unreachable", nil);
+	return kSecAttrAccessibleWhenUnlocked;
+}
 
 
 @implementation STSecurityKeychainAccess
@@ -180,6 +192,8 @@ CFTypeRef kSecAttrAccessibleAlwaysThisDeviceOnly;
 	SecKeyRef privateKeyRef = NULL;
 
 	{
+		CFTypeRef keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+
 		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionary];
 		if (publicKeyTag) {
 			publicKeyAttrs[(__bridge id)kSecAttrApplicationTag] = publicKeyTag;
@@ -201,6 +215,7 @@ CFTypeRef kSecAttrAccessibleAlwaysThisDeviceOnly;
 			(__bridge id)kSecAttrKeySizeInBits: @(size),
 			(__bridge id)kSecPublicKeyAttrs: publicKeyAttrs,
 			(__bridge id)kSecPrivateKeyAttrs: privateKeyAttrs,
+			(__bridge id)kSecAttrAccessible: (__bridge id)keychainItemAccessibility,
 		};
 		
 		OSStatus err = SecKeyGeneratePair((__bridge CFDictionaryRef)parameters, &publicKeyRef, &privateKeyRef);
