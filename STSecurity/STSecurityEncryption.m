@@ -23,6 +23,7 @@ static inline SecPadding STSecurityPaddingToSecPadding(enum STSecurityPadding pa
 			return kSecPaddingOAEP;
 	}
 	NSCAssert(0, @"STSecurityPadding unknown value: %u", padding);
+	return kSecPaddingNone;
 }
 
 
