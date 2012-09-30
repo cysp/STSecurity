@@ -15,6 +15,8 @@
 		2C55A16E1616E68800C54B8C /* STSecurityKeychainAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */; };
 		2C55A1711616E6A400C54B8C /* STSecurityKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1701616E6A400C54B8C /* STSecurityKey.m */; };
 		2C55A17516171D3000C54B8C /* STSecurityKeychainAccessTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A17416171D3000C54B8C /* STSecurityKeychainAccessTests.m */; };
+		2C55A1781617C70700C54B8C /* STSecurityEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1771617C70700C54B8C /* STSecurityEncryption.m */; };
+		2C55A17E161832D400C54B8C /* STSecurityEncryptionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A17D161832D400C54B8C /* STSecurityEncryptionTests.m */; };
 		2CBC57E11615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
 		2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; };
 		2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
@@ -71,6 +73,10 @@
 		2C55A17216171A7900C54B8C /* STSecurityKey+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "STSecurityKey+Internal.h"; sourceTree = "<group>"; };
 		2C55A17316171D3000C54B8C /* STSecurityKeychainAccessTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccessTests.h; sourceTree = "<group>"; };
 		2C55A17416171D3000C54B8C /* STSecurityKeychainAccessTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccessTests.m; sourceTree = "<group>"; };
+		2C55A1761617C70700C54B8C /* STSecurityEncryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityEncryption.h; sourceTree = "<group>"; };
+		2C55A1771617C70700C54B8C /* STSecurityEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityEncryption.m; sourceTree = "<group>"; };
+		2C55A17C161832D400C54B8C /* STSecurityEncryptionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityEncryptionTests.h; sourceTree = "<group>"; };
+		2C55A17D161832D400C54B8C /* STSecurityEncryptionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityEncryptionTests.m; sourceTree = "<group>"; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomization.h; sourceTree = "<group>"; };
@@ -170,6 +176,8 @@
 				2C55A1701616E6A400C54B8C /* STSecurityKey.m */,
 				2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */,
 				2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */,
+				2C55A1761617C70700C54B8C /* STSecurityEncryption.h */,
+				2C55A1771617C70700C54B8C /* STSecurityEncryption.m */,
 			);
 			path = STSecurity;
 			sourceTree = "<group>";
@@ -182,6 +190,8 @@
 				2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */,
 				2C55A17316171D3000C54B8C /* STSecurityKeychainAccessTests.h */,
 				2C55A17416171D3000C54B8C /* STSecurityKeychainAccessTests.m */,
+				2C55A17C161832D400C54B8C /* STSecurityEncryptionTests.h */,
+				2C55A17D161832D400C54B8C /* STSecurityEncryptionTests.m */,
 			);
 			path = STSecurityTests;
 			sourceTree = "<group>";
@@ -337,6 +347,7 @@
 				2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */,
 				2C55A16E1616E68800C54B8C /* STSecurityKeychainAccess.m in Sources */,
 				2C55A1711616E6A400C54B8C /* STSecurityKey.m in Sources */,
+				2C55A1781617C70700C54B8C /* STSecurityEncryption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +357,7 @@
 			files = (
 				2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */,
 				2C55A17516171D3000C54B8C /* STSecurityKeychainAccessTests.m in Sources */,
+				2C55A17E161832D400C54B8C /* STSecurityEncryptionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
