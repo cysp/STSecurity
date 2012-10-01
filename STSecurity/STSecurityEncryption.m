@@ -39,6 +39,17 @@ static inline SecPadding STSecurityPaddingToSecPadding(enum STSecurityPadding pa
 	return [self dataByEncryptingData:data withPublicKey:key padding:padding error:nil];
 }
 + (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityPublicKey *)key padding:(enum STSecurityPadding)padding error:(NSError * __autoreleasing *)error {
+	NSParameterAssert(key);
+	if (!key) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:0 userInfo:nil];
+		}
+		return nil;
+	}
+	if (!data) {
+		return nil;
+	}
+
 	size_t plainTextLen = [data length];
 	const uint8_t *plainTextBytes = [data bytes];
 
@@ -67,6 +78,17 @@ static inline SecPadding STSecurityPaddingToSecPadding(enum STSecurityPadding pa
 }
 
 + (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityPrivateKey *)key padding:(enum STSecurityPadding)padding error:(NSError *__autoreleasing *)error {
+	NSParameterAssert(key);
+	if (!key) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:0 userInfo:nil];
+		}
+		return nil;
+	}
+	if (!data) {
+		return nil;
+	}
+
 	size_t cipherTextLen = [data length];
 	const uint8_t *cipherTextBytes = [data bytes];
 
