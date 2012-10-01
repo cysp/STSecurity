@@ -307,7 +307,6 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		}
 	}
 
-	NSData *trimmedPublicKeyData = nil;
 	do {
 		const unsigned char *bytes = [publicKeyData bytes];
 		const size_t bytesLen = [publicKeyData length];
@@ -348,10 +347,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			break;
 		}
 
-		trimmedPublicKeyData = [publicKeyData subdataWithRange:NSMakeRange(i, bytesLen - i)];
+		publicKeyData = [publicKeyData subdataWithRange:NSMakeRange(i, bytesLen - i)];
 	} while (0);
 
-	if (![trimmedPublicKeyData length] || ![privateKeyData length]) {
+	if (![publicKeyData length] || ![privateKeyData length]) {
 		if (error) {
 			// lying about error.code but it's close enough
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -381,7 +380,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionaryWithDictionary:keyAttrs];
 		publicKeyAttrs[(__bridge id)kSecAttrKeyClass] = (__bridge id)kSecAttrKeyClassPublic;
-		publicKeyAttrs[(__bridge id)kSecValueData] = trimmedPublicKeyData;
+		publicKeyAttrs[(__bridge id)kSecValueData] = publicKeyData;
 		publicKeyAttrs[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanTrue;
 
 		NSMutableDictionary * const privateKeyAttrs = [NSMutableDictionary dictionaryWithDictionary:keyAttrs];
