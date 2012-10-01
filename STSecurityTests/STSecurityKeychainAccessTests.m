@@ -114,4 +114,34 @@
 	}
 }
 
+- (void)testConflictingGeneration {
+	NSString * const keyTag = @"STSecurityTest.testConflictingGeneration";
+	STSecurityPublicKey *publicKey = nil;
+	STSecurityPrivateKey *privateKey = nil;
+	NSUInteger keySize = 1024;
+
+	{
+		NSError *error = nil;
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		STAssertTrue(status, @"Keychain could not generate key pair");
+		STAssertNil(error, @"Key generation returned error: %@", error);
+	}
+	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+
+	{
+		NSError *error = nil;
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		STAssertFalse(status, @"Keychain generated conflicting key pair");
+		STAssertNotNil(error, @"Key generation returned no error");
+	}
+
+	{
+		NSError *error = nil;
+		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
+		STAssertTrue(status, @"Keychain could not delete public key");
+		STAssertNil(error, @"Public key deletion returned error: %@", error);
+	}
+}
+
 @end

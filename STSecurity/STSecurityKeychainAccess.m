@@ -168,6 +168,21 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
+	if (tag) {
+		NSDictionary * const query = @{
+			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+			(__bridge id)kSecAttrApplicationTag: tag,
+		};
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, NULL);
+		if (err == errSecSuccess) {
+			if (error) {
+				// lying about error.code but it's close enough
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecDuplicateItem userInfo:nil];
+			}
+			return NO;
+		}
+	}
+
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
 
