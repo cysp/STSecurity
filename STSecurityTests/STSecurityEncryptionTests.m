@@ -64,18 +64,18 @@
 	while ([data length] < 128) {
 		[data appendData:randomData];
 	}
-	[data setLength:128];
-	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingNone];
+	[data setLength:128 - 11];
+	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingPKCS1];
 }
 
 - (void)testEncryptionRoundtrip2 {
 	NSData *randomData = [STSecurityRandomization dataWithRandomBytesOfLength:16];
-	NSMutableData *data = [NSMutableData dataWithCapacity:128];
-	for (int i = 0; i < 8; ++i) {
+	NSMutableData *data = [NSMutableData dataWithCapacity:64];
+	for (int i = 0; i < 4; ++i) {
 		[data appendData:randomData];
 	}
-	[data setLength:128 - 11];
-	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingPKCS1];
+	[data setLength:64];
+	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingOAEP];
 }
 
 @end
