@@ -288,4 +288,149 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return YES;
 }
 
+
+#pragma mark - Importing
+
++ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
+	if (tag) {
+		NSDictionary * const query = @{
+			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+			(__bridge id)kSecAttrApplicationTag: tag,
+		};
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, NULL);
+		if (err == errSecSuccess) {
+			if (error) {
+				// lying about error.code but it's close enough
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecDuplicateItem userInfo:nil];
+			}
+			return NO;
+		}
+	}
+
+	NSData *trimmedPublicKeyData = nil;
+	do {
+		const unsigned char *bytes = [publicKeyData bytes];
+		const size_t bytesLen = [publicKeyData length];
+
+		size_t i = 0;
+		if (bytes[i++] != 0x30) {
+			break;
+		}
+
+		i += (bytes[i] > 0x80) ? bytes[i] - 0x80 + 1 : 1;
+		if (i >= bytesLen) {
+			break;
+		}
+
+		if (bytes[i] != 0x30) {
+			break;
+		}
+
+		i += 15;
+		if (i >= bytesLen - 2) {
+			break;
+		}
+
+		if (bytes[i++] != 0x03) {
+			break;
+		}
+
+		i += (bytes[i] > 0x80) ? bytes[i] - 0x80 + 1 : 1;
+		if (i >= bytesLen) {
+			break;
+		}
+
+		if (bytes[i++] != 0x00) {
+			break;
+		}
+
+		if (i >= bytesLen) {
+			break;
+		}
+
+		trimmedPublicKeyData = [publicKeyData subdataWithRange:NSMakeRange(i, bytesLen - i)];
+	} while (0);
+
+	if (!trimmedPublicKeyData) {
+		if (error) {
+			// lying about error.code but it's close enough
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	SecKeyRef publicKeyRef = NULL;
+	SecKeyRef privateKeyRef = NULL;
+	{
+		CFTypeRef keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+
+		NSMutableDictionary * const keyAttrs = [@{
+			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+												(__bridge id)kSecAttrKeyType: (__bridge id)kSecAttrKeyTypeRSA,
+			(__bridge id)kSecAttrAccessible: (__bridge id)keychainItemAccessibility,
+			(__bridge id)kSecReturnRef: (__bridge id)kCFBooleanTrue,
+			(__bridge id)kSecReturnAttributes: (__bridge id)kCFBooleanTrue,
+		} mutableCopy];
+		if (tag) {
+			keyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
+			keyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
+			if (accessGroup) {
+				keyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;
+			}
+		}
+
+		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionaryWithDictionary:keyAttrs];
+		publicKeyAttrs[(__bridge id)kSecAttrKeyClass] = (__bridge id)kSecAttrKeyClassPublic;
+		publicKeyAttrs[(__bridge id)kSecValueData] = trimmedPublicKeyData;
+		publicKeyAttrs[(__bridge id)kSecReturnData] = (__bridge id)kCFBooleanTrue;
+
+		NSMutableDictionary * const privateKeyAttrs = [NSMutableDictionary dictionaryWithDictionary:keyAttrs];
+		privateKeyAttrs[(__bridge id)kSecAttrKeyClass] = (__bridge id)kSecAttrKeyClassPrivate;
+		privateKeyAttrs[(__bridge id)kSecValueData] = privateKeyData;
+
+		{
+			CFTypeRef resultRef = NULL;
+			OSStatus err = SecItemAdd((__bridge CFDictionaryRef)publicKeyAttrs, &resultRef);
+			if (err != errSecSuccess) {
+				if (error) {
+					*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+				}
+				return NO;
+			}
+			NSDictionary * const result = (__bridge_transfer NSDictionary *)resultRef;
+			publicKeyRef = (__bridge_retained SecKeyRef)result[(__bridge id)kSecValueRef];
+			publicKeyData = result[(__bridge id)kSecValueData];
+		}
+
+		{
+			CFTypeRef resultRef = NULL;
+			OSStatus err = SecItemAdd((__bridge CFDictionaryRef)privateKeyAttrs, &resultRef);
+			if (err != errSecSuccess) {
+				if (error) {
+					*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+				}
+				return NO;
+			}
+			NSDictionary * const result = (__bridge_transfer NSDictionary *)resultRef;
+			privateKeyRef = (__bridge_retained SecKeyRef)result[(__bridge id)kSecValueRef];
+		}
+	}
+
+	if (publicKey) {
+		*publicKey = [[STSecurityPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
+	}
+	if (privateKey) {
+		*privateKey = [[STSecurityPrivateKey alloc] initWithKeyRef:privateKeyRef];
+	}
+
+	if (publicKeyRef) {
+		CFRelease(publicKeyRef), publicKeyRef = NULL;
+	}
+	if (privateKeyRef) {
+		CFRelease(privateKeyRef), privateKeyRef = NULL;
+	}
+
+	return YES;
+}
+
 @end
