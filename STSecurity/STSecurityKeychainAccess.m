@@ -58,7 +58,8 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
 	};
 
-	NSDictionary *result = nil;
+	SecKeyRef keyRef = NULL;
+	NSData *keyData = nil;
 	{
 		CFDictionaryRef resultDict = NULL;
 		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&resultDict);
@@ -68,13 +69,20 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			}
 			return nil;
 		}
-		result = (__bridge_transfer NSDictionary *)resultDict;
+
+		NSDictionary *result = (__bridge_transfer NSDictionary *)resultDict;
+
+		keyRef = (__bridge_retained SecKeyRef)[result objectForKey:(__bridge id)kSecValueRef];
+		keyData = [result objectForKey:(__bridge id)kSecValueData];
 	}
 
-	SecKeyRef keyRef = (__bridge SecKeyRef)([result objectForKey:(__bridge id)(kSecValueRef)]);
-	NSData *keyData = [result objectForKey:(__bridge id)(kSecValueData)];
+	STSecurityPublicKey *key = [[STSecurityPublicKey alloc] initWithKeyRef:keyRef keyData:keyData];
 
-	return [[STSecurityPublicKey alloc] initWithKeyRef:keyRef keyData:keyData];
+	if (keyRef) {
+		CFRelease(keyRef), keyRef = NULL;
+	}
+
+	return key;
 }
 
 + (STSecurityPrivateKey *)fetchPrivateKeyForTag:(NSString *)tag {
@@ -87,14 +95,12 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPrivate,
 		(__bridge id)kSecAttrApplicationTag: tag,
 		(__bridge id)kSecReturnRef: (__bridge id)kCFBooleanTrue,
-		(__bridge id)kSecReturnAttributes: (__bridge id)kCFBooleanTrue, // include attributes to work around bug (ref + data -> ref)
-		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
 	};
 
-	NSDictionary *result = nil;
+	SecKeyRef keyRef = NULL;
 	{
-		CFDictionaryRef resultDict = NULL;
-		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&resultDict);
+		CFTypeRef result = NULL;
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
 		if (err != errSecSuccess) {
 			if (error) {
 				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
@@ -102,12 +108,16 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			return nil;
 		}
 
-		result = (__bridge_transfer NSDictionary *)resultDict;
+		keyRef = (SecKeyRef)result;
 	}
 
-	SecKeyRef keyRef = (__bridge SecKeyRef)([result objectForKey:(__bridge id)(kSecValueRef)]);
+	STSecurityPrivateKey *key = [[STSecurityPrivateKey alloc] initWithKeyRef:keyRef];
 
-	return [[STSecurityPrivateKey alloc] initWithKeyRef:keyRef];
+	if (keyRef) {
+		CFRelease(keyRef), keyRef = NULL;
+	}
+
+	return key;
 }
 
 
@@ -224,24 +234,27 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		}
 	}
 
-	CFDataRef publicKeyDataRef = NULL;
+	NSData *publicKeyData = nil;
 	{
+		CFTypeRef result = NULL;
 		NSDictionary *publicKeyDataQuery = @{
-			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
-			(__bridge id)kSecValueRef: (__bridge id)publicKeyRef,
-			(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
+		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+		(__bridge id)kSecValueRef: (__bridge id)publicKeyRef,
+		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
 		};
-		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)publicKeyDataQuery, (CFTypeRef *)&publicKeyDataRef);
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)publicKeyDataQuery, &result);
 		if (err != errSecSuccess) {
 			if (error) {
 				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
 			}
 			return NO;
 		}
+
+		publicKeyData = (__bridge_transfer NSData *)result;
 	}
 
 	if (publicKey) {
-		*publicKey = [[STSecurityPublicKey alloc] initWithKeyRef:publicKeyRef keyData:CFBridgingRelease(publicKeyDataRef)];
+		*publicKey = [[STSecurityPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
 	}
 	if (privateKey) {
 		*privateKey = [[STSecurityPrivateKey alloc] initWithKeyRef:privateKeyRef];
