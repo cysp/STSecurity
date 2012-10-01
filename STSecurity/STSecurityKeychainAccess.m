@@ -387,6 +387,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		privateKeyAttrs[(__bridge id)kSecAttrKeyClass] = (__bridge id)kSecAttrKeyClassPrivate;
 		privateKeyAttrs[(__bridge id)kSecValueData] = privateKeyData;
 
+		NSDictionary *publicKeyResult = nil;
 		{
 			CFTypeRef resultRef = NULL;
 			OSStatus err = SecItemAdd((__bridge CFDictionaryRef)publicKeyAttrs, &resultRef);
@@ -396,11 +397,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 				}
 				return NO;
 			}
-			NSDictionary * const result = (__bridge_transfer NSDictionary *)resultRef;
-			publicKeyRef = (__bridge_retained SecKeyRef)result[(__bridge id)kSecValueRef];
-			publicKeyData = result[(__bridge id)kSecValueData];
+			publicKeyResult = (__bridge_transfer NSDictionary *)resultRef;
 		}
 
+		NSDictionary *privateKeyResult = nil;
 		{
 			CFTypeRef resultRef = NULL;
 			OSStatus err = SecItemAdd((__bridge CFDictionaryRef)privateKeyAttrs, &resultRef);
@@ -410,9 +410,13 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 				}
 				return NO;
 			}
-			NSDictionary * const result = (__bridge_transfer NSDictionary *)resultRef;
-			privateKeyRef = (__bridge_retained SecKeyRef)result[(__bridge id)kSecValueRef];
+			privateKeyResult = (__bridge_transfer NSDictionary *)resultRef;
 		}
+
+		publicKeyRef = (__bridge_retained SecKeyRef)publicKeyResult[(__bridge id)kSecValueRef];
+		publicKeyData = publicKeyResult[(__bridge id)kSecValueData];
+
+		privateKeyRef = (__bridge_retained SecKeyRef)privateKeyResult[(__bridge id)kSecValueRef];
 	}
 
 	if (publicKey) {
