@@ -53,9 +53,7 @@ static inline SecPadding STSecurityPaddingToSecPadding(enum STSecurityPadding pa
 	size_t plainTextLen = [data length];
 	const uint8_t *plainTextBytes = [data bytes];
 
-	NSUInteger blockSize = [key blockSize];
-	NSUInteger cipherTextBlocks = (plainTextLen + blockSize - 1) / blockSize;
-	size_t cipherTextLen = cipherTextBlocks * blockSize;
+	size_t cipherTextLen = [key blockSize];
 	uint8_t *cipherText = calloc(1, cipherTextLen);
 
 	OSStatus err = SecKeyEncrypt(key.keyRef, STSecurityPaddingToSecPadding(padding), plainTextBytes, plainTextLen, cipherText, &cipherTextLen);
@@ -92,9 +90,7 @@ static inline SecPadding STSecurityPaddingToSecPadding(enum STSecurityPadding pa
 	size_t cipherTextLen = [data length];
 	const uint8_t *cipherTextBytes = [data bytes];
 
-	NSUInteger blockSize = [key blockSize];
-	NSUInteger plainTextBlocks = (cipherTextLen + blockSize - 1) / blockSize;
-	size_t plainTextLen = plainTextBlocks * blockSize;
+	size_t plainTextLen = [key blockSize];
 	uint8_t *plainText = calloc(1, plainTextLen);
 
 	OSStatus err = SecKeyDecrypt(key.keyRef, STSecurityPaddingToSecPadding(padding), cipherTextBytes, cipherTextLen, plainText, &plainTextLen);
