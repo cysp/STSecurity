@@ -28,6 +28,9 @@
 - (id)initWithKeyRef:(SecKeyRef)keyRef keyData:(NSData *)keyData {
 	NSParameterAssert(keyRef);
 	NSParameterAssert([keyData length]);
+	if (!keyRef || ![keyData length]) {
+		return nil;
+	}
 	if ((self = [super init])) {
 		_keyRef = (SecKeyRef)CFRetain(keyRef);
 		_keyData = [keyData copy];
@@ -67,6 +70,9 @@
 
 - (id)initWithKeyRef:(SecKeyRef)keyRef {
 	NSParameterAssert(keyRef);
+	if (!keyRef) {
+		return nil;
+	}
 	if ((self = [super init])) {
 		_keyRef = (SecKeyRef)CFRetain(keyRef);
 	}
