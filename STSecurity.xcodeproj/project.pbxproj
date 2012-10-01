@@ -10,6 +10,7 @@
 		2C1D8CC116186B6B009EB62A /* STSecurityKey.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A16F1616E6A400C54B8C /* STSecurityKey.h */; };
 		2C1D8CC316186B6F009EB62A /* STSecurityKeychainAccess.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */; };
 		2C1D8CC416186B72009EB62A /* STSecurityEncryption.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A1761617C70700C54B8C /* STSecurityEncryption.h */; };
+		2C1D8D04161931CB009EB62A /* STSecurityKeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1D8D03161931CB009EB62A /* STSecurityKeyTests.m */; };
 		2C55A1531615DA9E00C54B8C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1521615DA9E00C54B8C /* UIKit.framework */; };
 		2C55A1561615DABF00C54B8C /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
 		2C55A1581615DAD000C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
@@ -70,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C1D8D02161931CB009EB62A /* STSecurityKeyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeyTests.h; sourceTree = "<group>"; };
+		2C1D8D03161931CB009EB62A /* STSecurityKeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeyTests.m; sourceTree = "<group>"; };
 		2C55A1521615DA9E00C54B8C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2C55A1571615DAD000C54B8C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccess.h; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */,
 				2CBC57FD1615D8C000FF15E9 /* STSecurityRandomizationTests.h */,
 				2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */,
+				2C1D8D02161931CB009EB62A /* STSecurityKeyTests.h */,
+				2C1D8D03161931CB009EB62A /* STSecurityKeyTests.m */,
 				2C55A17316171D3000C54B8C /* STSecurityKeychainAccessTests.h */,
 				2C55A17416171D3000C54B8C /* STSecurityKeychainAccessTests.m */,
 				2C55A17C161832D400C54B8C /* STSecurityEncryptionTests.h */,
@@ -364,6 +369,7 @@
 				2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */,
 				2C55A17516171D3000C54B8C /* STSecurityKeychainAccessTests.m in Sources */,
 				2C55A17E161832D400C54B8C /* STSecurityEncryptionTests.m in Sources */,
+				2C1D8D04161931CB009EB62A /* STSecurityKeyTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
