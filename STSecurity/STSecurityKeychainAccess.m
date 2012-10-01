@@ -168,33 +168,6 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup publicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
-	if (publicKeyTag) {
-		NSDictionary * const query = @{
-			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
-			(__bridge id)kSecAttrApplicationTag: publicKeyTag,
-		};
-		OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
-		if (err != errSecSuccess && err != errSecItemNotFound) {
-			if (error) {
-					*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
-			}
-			return NO;
-		}
-	}
-	if (privateKeyTag) {
-		NSDictionary * const query = @{
-			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
-			(__bridge id)kSecAttrApplicationTag: privateKeyTag,
-		};
-		OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
-		if (err != errSecSuccess && err != errSecItemNotFound) {
-			if (error) {
-				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
-			}
-			return NO;
-		}
-	}
-
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
 
