@@ -351,7 +351,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		trimmedPublicKeyData = [publicKeyData subdataWithRange:NSMakeRange(i, bytesLen - i)];
 	} while (0);
 
-	if (!trimmedPublicKeyData) {
+	if (![trimmedPublicKeyData length] || ![privateKeyData length]) {
 		if (error) {
 			// lying about error.code but it's close enough
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
