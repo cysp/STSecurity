@@ -97,6 +97,14 @@
 	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
 	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
+	NSData *privateKeyData = nil;
+	{
+		NSError *error = nil;
+		privateKeyData = [STSecurityKeychainAccess fetchKeyDataForPrivateKey:privateKey error:&error];
+		STAssertNotNil(privateKeyData, @"Could not fetch private key data");
+		STAssertNil(error, @"Private key data fetch returned error: %@", error);
+	}
+
 	STSecurityPublicKey *fetchedPublicKey = nil;
 	{
 		NSError *error = nil;
@@ -104,7 +112,25 @@
 		STAssertNotNil(fetchedPublicKey, @"Keychain could not find public key");
 		STAssertNil(error, @"Keychain fetch returned error: %@", error);
 	}
-	STAssertEqualObjects(publicKey.keyData, fetchedPublicKey.keyData, @"Fetched key doesn't equal original");
+
+	STSecurityPrivateKey *fetchedPrivateKey = nil;
+	{
+		NSError *error = nil;
+		fetchedPrivateKey = [STSecurityKeychainAccess fetchPrivateKeyForTag:keyTag error:&error];
+		STAssertNotNil(fetchedPrivateKey, @"Keychain could not find private key");
+		STAssertNil(error, @"Keychain fetch returned error: %@", error);
+	}
+
+	NSData *fetchedPrivateKeyData = nil;
+	{
+		NSError *error = nil;
+		fetchedPrivateKeyData = [STSecurityKeychainAccess fetchKeyDataForPrivateKey:fetchedPrivateKey error:&error];
+		STAssertNotNil(fetchedPrivateKeyData, @"Could not fetch private key data");
+		STAssertNil(error, @"Private key data fetch returned error: %@", error);
+	}
+
+	STAssertEqualObjects(publicKey.keyData, fetchedPublicKey.keyData, @"Fetched public key doesn't equal original");
+	STAssertEqualObjects(privateKeyData, fetchedPrivateKeyData, @"Fetched private key doesn't equal original");
 
 	{
 		NSError *error = nil;

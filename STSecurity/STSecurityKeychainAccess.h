@@ -34,6 +34,9 @@ NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 + (STSecurityPrivateKey *)fetchPrivateKeyForTag:(NSString *)tag;
 + (STSecurityPrivateKey *)fetchPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
 
++ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key;
++ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key error:(NSError * __autoreleasing *)error;
+
 + (BOOL)deleteKeysForTag:(NSString *)tag;
 + (BOOL)deleteKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
 

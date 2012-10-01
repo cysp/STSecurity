@@ -120,6 +120,36 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return key;
 }
 
++ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key {
+	return [self fetchKeyDataForPrivateKey:key error:nil];
+}
+
++ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key error:(NSError *__autoreleasing *)error {
+	SecKeyRef keyRef = key.keyRef;
+
+	NSDictionary * const query = @{
+		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPrivate,
+		(__bridge id)kSecValueRef: (__bridge id)keyRef,
+		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
+	};
+
+	NSData *keyData = nil;
+	{
+		CFTypeRef result = NULL;
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+		if (err != errSecSuccess) {
+			if (error) {
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+			}
+			return nil;
+		}
+
+		keyData = (__bridge_transfer NSData *)result;
+	}
+
+	return keyData;
+}
 
 #pragma mark - Deletion
 
