@@ -28,7 +28,7 @@
 - (void)testDeleteNonexistent {
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:@"STSecurityTest.nonexistent" error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:@"STSecurityTest.nonexistent" error:&error];
 		STAssertFalse(status, @"Keychain returned success deleting nonexistent key");
 		STAssertNotNil(error, @"Keychain returned nil error");
 		STAssertEquals(error.code, errSecItemNotFound, @"Keychain returned error.code not ItemNotFound: %d", error.code);
@@ -37,14 +37,13 @@
 
 
 - (void)_st_testGenerationOfSize:(NSUInteger)keySize {
-	NSString * const publicKeyTag = @"STSecurityTest.testGeneration.public";
-	NSString * const privateKeyTag = @"STSecurityTest.testGeneration.private";
+	NSString * const keyTag = @"STSecurityTest.testGeneration";
 	STSecurityPublicKey *publicKey = nil;
 	STSecurityPrivateKey *privateKey = nil;
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithPublicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
 		STAssertTrue(status, @"Keychain could not generate key pair");
 		STAssertNil(error, @"Key generation returned error: %@", error);
 	}
@@ -53,15 +52,9 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:publicKeyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
-	}
-	{
-		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:privateKeyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete private key");
-		STAssertNil(error, @"Private key deletion returned error: %@", error);
 	}
 }
 
@@ -81,7 +74,7 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:1024 insertedIntoKeychainWithPublicKeyTag:nil privateKeyTag:nil publicKey:&publicKey privateKey:&privateKey error:&error];
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:1024 insertedIntoKeychainWithTag:nil publicKey:&publicKey privateKey:&privateKey error:&error];
 		STAssertFalse(status, @"Keychain generated key pair without tags");
 		STAssertNotNil(error, @"Key generation returned nil error");
 	}
@@ -90,15 +83,14 @@
 }
 
 - (void)testGenerationAndFetch {
-	NSString * const publicKeyTag = @"STSecurityTest.testGeneration.public";
-	NSString * const privateKeyTag = @"STSecurityTest.testGeneration.private";
+	NSString * const keyTag = @"STSecurityTest.testGenerationAndFetch";
 	STSecurityPublicKey *publicKey = nil;
 	STSecurityPrivateKey *privateKey = nil;
 	NSUInteger keySize = 1024;
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithPublicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
 		STAssertTrue(status, @"Keychain could not generate key pair");
 		STAssertNil(error, @"Key generation returned error: %@", error);
 	}
@@ -108,7 +100,7 @@
 	STSecurityPublicKey *fetchedPublicKey = nil;
 	{
 		NSError *error = nil;
-		fetchedPublicKey = [STSecurityKeychainAccess fetchPublicKeyForTag:publicKeyTag error:&error];
+		fetchedPublicKey = [STSecurityKeychainAccess fetchPublicKeyForTag:keyTag error:&error];
 		STAssertNotNil(fetchedPublicKey, @"Keychain could not find public key");
 		STAssertNil(error, @"Keychain fetch returned error: %@", error);
 	}
@@ -116,15 +108,9 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:publicKeyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
-	}
-	{
-		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:privateKeyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete private key");
-		STAssertNil(error, @"Private key deletion returned error: %@", error);
 	}
 }
 

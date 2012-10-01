@@ -123,11 +123,11 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - Deletion
 
-+ (BOOL)deleteKeyForTag:(NSString *)tag {
-	return [self deleteKeyForTag:tag error:NULL];
++ (BOOL)deleteKeysForTag:(NSString *)tag {
+	return [self deleteKeysForTag:tag error:NULL];
 }
 
-+ (BOOL)deleteKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
++ (BOOL)deleteKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrApplicationTag: tag,
@@ -148,26 +148,26 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 #pragma mark - Generation
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithPublicKeyTag:nil privateKeyTag:nil publicKey:publicKey privateKey:privateKey];
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:nil publicKey:publicKey privateKey:privateKey];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithPublicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithPublicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:NULL privateKey:NULL];
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag {
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:tag publicKey:NULL privateKey:NULL];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithPublicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithPublicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:publicKey privateKey:privateKey error:NULL];
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey {
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:tag publicKey:publicKey privateKey:privateKey error:NULL];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithPublicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessGroup:nil publicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:publicKey privateKey:privateKey error:error];
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessGroup:nil tag:tag publicKey:publicKey privateKey:privateKey error:error];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessGroup:(NSString *)accessGroup publicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:accessGroup publicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:publicKey privateKey:privateKey error:error];
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:accessGroup tag:tag publicKey:publicKey privateKey:privateKey error:error];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup publicKeyTag:(NSString *)publicKeyTag privateKeyTag:(NSString *)privateKeyTag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
 
@@ -175,16 +175,16 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		CFTypeRef keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
 
 		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionary];
-		if (publicKeyTag) {
-			publicKeyAttrs[(__bridge id)kSecAttrApplicationTag] = publicKeyTag;
+		if (tag) {
+			publicKeyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
 			publicKeyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
 			if (accessGroup) {
 				publicKeyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;
 			}
 		}
 		NSMutableDictionary * const privateKeyAttrs = [NSMutableDictionary dictionary];
-		if (privateKeyTag) {
-			privateKeyAttrs[(__bridge id)kSecAttrApplicationTag] = privateKeyTag;
+		if (tag) {
+			privateKeyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
 			privateKeyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
 			if (accessGroup) {
 				privateKeyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;

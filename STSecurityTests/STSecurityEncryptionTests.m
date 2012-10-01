@@ -15,14 +15,13 @@
 @implementation STSecurityEncryptionTests
 
 - (void)_st_testEncryptionRoundtripWithData:(NSData *)data keySize:(NSUInteger)keySize padding:(enum STSecurityPadding)padding {
-	NSString * const publicKeyTag = @"STSecurityTest.testEncryption.public";
-	NSString * const privateKeyTag = @"STSecurityTest.testEncryption.private";
+	NSString * const keyTag = @"STSecurityTest.testEncryption";
 	STSecurityPublicKey *publicKey = nil;
 	STSecurityPrivateKey *privateKey = nil;
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithPublicKeyTag:publicKeyTag privateKeyTag:privateKeyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
 		STAssertTrue(status, @"Keychain could not generate key pair");
 		STAssertNil(error, @"Key generation returned error: %@", error);
 	}
@@ -49,15 +48,9 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:publicKeyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
-	}
-	{
-		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeyForTag:privateKeyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete private key");
-		STAssertNil(error, @"Private key deletion returned error: %@", error);
 	}
 }
 
