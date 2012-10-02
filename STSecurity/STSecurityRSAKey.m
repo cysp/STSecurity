@@ -10,8 +10,9 @@
 //
 
 #if ! (defined(__has_feature) && __has_feature(objc_arc))
-# error "STReachability must be compiled with ARC enabled"
+# error "STSecurity must be compiled with ARC enabled"
 #endif
+
 
 #import "STSecurityRSAKey.h"
 
