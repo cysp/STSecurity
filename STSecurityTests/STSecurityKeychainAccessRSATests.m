@@ -1,16 +1,16 @@
 //
-//  STSecurityKeychainAccessTests.m
+//  STSecurityKeychainAccessRSATests.m
 //  STSecurity
 //
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityKeychainAccessTests.h"
+#import "STSecurityKeychainAccessRSATests.h"
 
 #import "STSecurityKeychainAccess.h"
 
 
-@implementation STSecurityKeychainAccessTests
+@implementation STSecurityKeychainAccessRSATests
 
 - (void)testFetchNonexistent {
 	{
