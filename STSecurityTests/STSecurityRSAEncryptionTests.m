@@ -1,26 +1,26 @@
 //
-//  STSecurityEncryptionTests.m
+//  STSecurityRSAEncryptionTests.m
 //  STSecurity
 //
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityEncryptionTests.h"
+#import "STSecurityRSAEncryptionTests.h"
 
 #import "STSecurityKeychainAccess.h"
-#import "STSecurityEncryption.h"
+#import "STSecurityRSAEncryption.h"
 #import "STSecurityRandomization.h"
 
 
-@implementation STSecurityEncryptionTests
+@implementation STSecurityRSAEncryptionTests
 
 - (void)testEncryptionInvalid {
 	NSString * const keyTag = @"STSecurityTest.testEncryptionInvalid";
-	STSecurityPublicKey *publicKey = nil;
-	STSecurityPrivateKey *privateKey = nil;
+	STSecurityRSAPublicKey *publicKey = nil;
+	STSecurityRSAPrivateKey *privateKey = nil;
 	NSUInteger keySize = 512;
 
-	[STSecurityKeychainAccess deleteKeysForTag:keyTag error:NULL];
+	[STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:NULL];
 
 	{
 		NSError *error = nil;
@@ -33,30 +33,30 @@
 
 	{
 		NSError *error = nil;
-		NSData *data = [STSecurityEncryption dataByEncryptingData:nil withPublicKey:publicKey padding:STSecurityPaddingPKCS1 error:&error];
+		NSData *data = [STSecurityRSAEncryption dataByEncryptingData:nil withPublicKey:publicKey padding:STSecurityRSAPaddingPKCS1 error:&error];
 		STAssertNil(data, nil);
 		STAssertNil(error, nil);
 	}
 
 	{
 		NSError *error = nil;
-		NSData *data = [STSecurityEncryption dataByEncryptingData:[NSData data] withPublicKey:publicKey padding:STSecurityPaddingPKCS1 error:&error];
+		NSData *data = [STSecurityRSAEncryption dataByEncryptingData:[NSData data] withPublicKey:publicKey padding:STSecurityRSAPaddingPKCS1 error:&error];
 		STAssertNotNil(data, nil);
 		STAssertNil(error, nil);
 	}
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
-- (void)_st_testEncryptionRoundtripWithData:(NSData *)data keySize:(NSUInteger)keySize padding:(enum STSecurityPadding)padding {
+- (void)_st_testEncryptionRoundtripWithData:(NSData *)data keySize:(NSUInteger)keySize padding:(enum STSecurityRSAPadding)padding {
 	NSString * const keyTag = @"STSecurityTest.testEncryption";
-	STSecurityPublicKey *publicKey = nil;
-	STSecurityPrivateKey *privateKey = nil;
+	STSecurityRSAPublicKey *publicKey = nil;
+	STSecurityRSAPrivateKey *privateKey = nil;
 
 	{
 		NSError *error = nil;
@@ -70,7 +70,7 @@
 	NSData *dataEncrypted = nil;
 	{
 		NSError *error = nil;
-		dataEncrypted = [STSecurityEncryption dataByEncryptingData:data withPublicKey:publicKey padding:padding error:&error];
+		dataEncrypted = [STSecurityRSAEncryption dataByEncryptingData:data withPublicKey:publicKey padding:padding error:&error];
 		STAssertNotNil(dataEncrypted, @"Encryption returned nil data");
 		STAssertNil(error, @"Encryption returned error: %@", error);
 	}
@@ -79,7 +79,7 @@
 	NSData *dataDecrypted = nil;
 	{
 		NSError *error = nil;
-		dataDecrypted = [STSecurityEncryption dataByDecryptingData:dataEncrypted withPrivateKey:privateKey padding:padding error:&error];
+		dataDecrypted = [STSecurityRSAEncryption dataByDecryptingData:dataEncrypted withPrivateKey:privateKey padding:padding error:&error];
 		STAssertNotNil(dataDecrypted, @"Decryption returned nil data");
 		STAssertNil(error, @"Decryption returned error: %@", error);
 	}
@@ -87,14 +87,14 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
 - (void)testEncryptionRoundtrip0 {
-	[self _st_testEncryptionRoundtripWithData:[@"plaintext" dataUsingEncoding:NSUTF8StringEncoding] keySize:1024 padding:STSecurityPaddingPKCS1];
+	[self _st_testEncryptionRoundtripWithData:[@"plaintext" dataUsingEncoding:NSUTF8StringEncoding] keySize:1024 padding:STSecurityRSAPaddingPKCS1];
 }
 
 - (void)testEncryptionRoundtrip1 {
@@ -104,7 +104,7 @@
 		[data appendData:randomData];
 	}
 	[data setLength:128 - 11];
-	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingPKCS1];
+	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityRSAPaddingPKCS1];
 }
 
 - (void)testEncryptionRoundtrip2 {
@@ -114,13 +114,13 @@
 		[data appendData:randomData];
 	}
 	[data setLength:64];
-	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityPaddingOAEP];
+	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityRSAPaddingOAEP];
 }
 
 - (void)testEncryptionInserted {
 	NSString * const keyTag = @"STSecurityTest.testInsertion";
-	STSecurityPublicKey *publicKey = nil;
-	STSecurityPrivateKey *privateKey = nil;
+	STSecurityRSAPublicKey *publicKey = nil;
+	STSecurityRSAPrivateKey *privateKey = nil;
 
 	unsigned char const pub_bytes[] = {
 		0x30, 0x82, 0x01, 0x22, 0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01,
@@ -255,7 +255,7 @@
 	NSData * const plaintextDataExpected = [NSData dataWithBytesNoCopy:(void *)plaintext_bytes length:plaintext_bytes_len freeWhenDone:NO];
 	NSData * const ciphertextData = [NSData dataWithBytesNoCopy:(void *)ciphertext_bytes length:ciphertext_bytes_len freeWhenDone:NO];
 
-	[STSecurityKeychainAccess deleteKeysForTag:keyTag error:NULL];
+	[STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:NULL];
 
 	{
 		NSError *error = nil;
@@ -269,7 +269,7 @@
 	NSData *ciphertextDataDecrypted = nil;
 	{
 		NSError *error = nil;
-		ciphertextDataDecrypted = [STSecurityEncryption dataByDecryptingData:ciphertextData withPrivateKey:privateKey padding:STSecurityPaddingPKCS1 error:&error];
+		ciphertextDataDecrypted = [STSecurityRSAEncryption dataByDecryptingData:ciphertextData withPrivateKey:privateKey padding:STSecurityRSAPaddingPKCS1 error:&error];
 		STAssertNotNil(ciphertextDataDecrypted, nil);
 		STAssertNil(error, @"error: %@", error);
 	}
@@ -277,7 +277,7 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess deleteKeysForTag:keyTag error:&error];
+		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
 		STAssertTrue(status, @"Keychain could not delete public key");
 		STAssertNil(error, @"Public key deletion returned error: %@", error);
 	}

@@ -1,5 +1,5 @@
 //
-//  STSecurityKey.m
+//  STSecurityRSAKey.m
 //  STSecurity
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,12 +13,12 @@
 # error "STReachability must be compiled with ARC enabled"
 #endif
 
-#import "STSecurityKey.h"
+#import "STSecurityRSAKey.h"
 
 #import <Security/Security.h>
 
 
-@implementation STSecurityPublicKey {
+@implementation STSecurityRSAPublicKey {
 	SecKeyRef _keyRef;
 	NSData *_keyData;
 }
@@ -66,7 +66,7 @@
 @end
 
 
-@implementation STSecurityPrivateKey {
+@implementation STSecurityRSAPrivateKey {
 	SecKeyRef _keyRef;
 }
 

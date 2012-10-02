@@ -1,5 +1,5 @@
 //
-//  STSecurityKey.h
+//  STSecurityRSAKey.h
 //  STSecurity
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,10 +12,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface STSecurityPublicKey : NSObject
+@interface STSecurityRSAPublicKey : NSObject
 - (NSData *)keyData;
 @end
 
 
-@interface STSecurityPrivateKey : NSObject
+@interface STSecurityRSAPrivateKey : NSObject
 @end

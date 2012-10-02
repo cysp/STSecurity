@@ -17,8 +17,8 @@
 
 #import <Security/Security.h>
 
-#import "STSecurityKey.h"
-#import "STSecurityKey+Internal.h"
+#import "STSecurityRSAKey.h"
+#import "STSecurityRSAKey+Internal.h"
 
 
 NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError";
@@ -48,11 +48,11 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - Retrieval
 
-+ (STSecurityPublicKey *)fetchPublicKeyForTag:(NSString *)tag {
-	return [self fetchPublicKeyForTag:tag error:NULL];
++ (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag {
+	return [self fetchRSAPublicKeyForTag:tag error:NULL];
 }
 
-+ (STSecurityPublicKey *)fetchPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
++ (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPublic,
@@ -80,7 +80,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		keyData = [result objectForKey:(__bridge id)kSecValueData];
 	}
 
-	STSecurityPublicKey *key = [[STSecurityPublicKey alloc] initWithKeyRef:keyRef keyData:keyData];
+	STSecurityRSAPublicKey *key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:keyRef keyData:keyData];
 
 	if (keyRef) {
 		CFRelease(keyRef), keyRef = NULL;
@@ -89,11 +89,11 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return key;
 }
 
-+ (STSecurityPrivateKey *)fetchPrivateKeyForTag:(NSString *)tag {
-	return [self fetchPrivateKeyForTag:tag error:NULL];
++ (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag {
+	return [self fetchRSAPrivateKeyForTag:tag error:NULL];
 }
 
-+ (STSecurityPrivateKey *)fetchPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
++ (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPrivate,
@@ -115,7 +115,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		keyRef = (SecKeyRef)result;
 	}
 
-	STSecurityPrivateKey *key = [[STSecurityPrivateKey alloc] initWithKeyRef:keyRef];
+	STSecurityRSAPrivateKey *key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:keyRef];
 
 	if (keyRef) {
 		CFRelease(keyRef), keyRef = NULL;
@@ -124,11 +124,11 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return key;
 }
 
-+ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key {
-	return [self fetchKeyDataForPrivateKey:key error:nil];
++ (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key {
+	return [self fetchKeyDataForRSAPrivateKey:key error:nil];
 }
 
-+ (NSData *)fetchKeyDataForPrivateKey:(STSecurityPrivateKey *)key error:(NSError *__autoreleasing *)error {
++ (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key error:(NSError *__autoreleasing *)error {
 	SecKeyRef keyRef = key.keyRef;
 
 	NSDictionary * const query = @{
@@ -157,13 +157,14 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - Deletion
 
-+ (BOOL)deleteKeysForTag:(NSString *)tag {
-	return [self deleteKeysForTag:tag error:NULL];
++ (BOOL)deleteRSAKeysForTag:(NSString *)tag {
+	return [self deleteRSAKeysForTag:tag error:NULL];
 }
 
-+ (BOOL)deleteKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
++ (BOOL)deleteRSAKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
+		(__bridge id)kSecAttrKeyType: (__bridge id)kSecAttrKeyTypeRSA,
 		(__bridge id)kSecAttrApplicationTag: tag,
 	};
 
@@ -181,7 +182,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - Generation
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey {
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:nil publicKey:publicKey privateKey:privateKey];
 }
 
@@ -189,19 +190,19 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:tag publicKey:NULL privateKey:NULL];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey {
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:tag publicKey:publicKey privateKey:privateKey error:NULL];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessGroup:nil tag:tag publicKey:publicKey privateKey:privateKey error:error];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:accessGroup tag:tag publicKey:publicKey privateKey:privateKey error:error];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
 	if (tag) {
 		NSDictionary * const query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
@@ -276,10 +277,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	}
 
 	if (publicKey) {
-		*publicKey = [[STSecurityPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
+		*publicKey = [[STSecurityRSAPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
 	}
 	if (privateKey) {
-		*privateKey = [[STSecurityPrivateKey alloc] initWithKeyRef:privateKeyRef];
+		*privateKey = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:privateKeyRef];
 	}
 
 	if (publicKeyRef) {
@@ -295,7 +296,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - Importing
 
-+ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
++ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
 	if (tag) {
 		NSDictionary * const query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
@@ -424,10 +425,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	}
 
 	if (publicKey) {
-		*publicKey = [[STSecurityPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
+		*publicKey = [[STSecurityRSAPublicKey alloc] initWithKeyRef:publicKeyRef keyData:publicKeyData];
 	}
 	if (privateKey) {
-		*privateKey = [[STSecurityPrivateKey alloc] initWithKeyRef:privateKeyRef];
+		*privateKey = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:privateKeyRef];
 	}
 
 	if (publicKeyRef) {

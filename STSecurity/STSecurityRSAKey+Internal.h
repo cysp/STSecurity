@@ -1,5 +1,5 @@
 //
-//  STSecurityKey+Internal.h
+//  STSecurityRSAKey+Internal.h
 //  STSecurity
 //
 //  This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,17 +9,17 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityKey.h"
+#import "STSecurityRSAKey.h"
 
 
-@interface STSecurityPublicKey (Internal)
+@interface STSecurityRSAPublicKey (Internal)
 - (id)initWithKeyRef:(SecKeyRef)keyRef keyData:(NSData *)keyData;
 - (SecKeyRef)keyRef NS_RETURNS_INNER_POINTER;
 - (NSUInteger)blockSize;
 @end
 
 
-@interface STSecurityPrivateKey (Internal)
+@interface STSecurityRSAPrivateKey (Internal)
 - (id)initWithKeyRef:(SecKeyRef)keyRef;
 - (SecKeyRef)keyRef NS_RETURNS_INNER_POINTER;
 - (NSUInteger)blockSize;
