@@ -46,7 +46,198 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 @implementation STSecurityKeychainAccess
 
-#pragma mark - Retrieval
+#pragma mark - Password - Insertion
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service {
+	return [self setPassword:password forUsername:username service:service error:NULL];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:NO error:error];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting {
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:overwriteExisting error:NULL];
+}
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:overwriteExisting error:error];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
+	return [self setPassword:password forUsername:username service:service withAccessibility:accessibility accessGroup:nil overwriteExisting:overwriteExisting error:error];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
+	if (![username length] || ![service length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	NSData * const passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
+	if (![passwordData length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	NSData *persistentRef = nil;
+
+	{
+		NSDictionary *query = @{
+			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+			(__bridge id)kSecAttrService: service,
+			(__bridge id)kSecAttrAccount: username,
+			(__bridge id)kSecReturnPersistentRef: (__bridge id)kCFBooleanTrue,
+		};
+		CFDataRef result = NULL;
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+		if (err == errSecSuccess) {
+			persistentRef = (__bridge_transfer NSData *)result;
+		}
+	}
+	if (persistentRef && !overwriteExisting) {
+		if (error) {
+			// lying about error.code but pretty close
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecDuplicateItem userInfo:nil];
+		}
+		return NO;
+	}
+
+	CFTypeRef accessible = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+
+	if (persistentRef) {
+		NSDictionary *query = @{
+			(__bridge id)kSecValuePersistentRef: persistentRef,
+		};
+		NSDictionary *attributes = @{
+			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
+			(__bridge id)kSecValueData: passwordData,
+		};
+		OSStatus err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
+		if (err != errSecSuccess) {
+			if (error) {
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+			}
+			return NO;
+		}
+	} else {
+		NSDictionary *attributes = @{
+			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
+			(__bridge id)kSecAttrService: service,
+			(__bridge id)kSecAttrAccount: username,
+			(__bridge id)kSecValueData: passwordData,
+		};
+		OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attributes, NULL);
+		if (err != errSecSuccess) {
+			if (error) {
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+			}
+			return NO;
+		}
+	}
+
+	return YES;
+}
+
+
+#pragma mark - Password - Retrieval
+
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service {
+	return [self passwordForUsername:username service:service error:NULL];
+}
+
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (![username length] || ![service length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return nil;
+	}
+
+	NSDictionary *query = @{
+		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+		(__bridge id)kSecAttrService: service,
+		(__bridge id)kSecAttrAccount: username,
+		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
+	};
+	CFDataRef result = NULL;
+	OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+	if (err != errSecSuccess) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+		}
+		return nil;
+	}
+	NSData *passwordData = (__bridge_transfer NSData *)result;
+	return [[NSString alloc] initWithData:passwordData encoding:NSUTF8StringEncoding];
+}
+
+
+#pragma mark - Password - Deletion
+
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service {
+	return [self deletePasswordForUsername:username service:service error:NULL];
+}
+
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (![username length] || ![service length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	NSDictionary *query = @{
+		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+		(__bridge id)kSecAttrService: service,
+		(__bridge id)kSecAttrAccount: username,
+	};
+
+	OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
+	if (err != errSecSuccess) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+		}
+		return NO;
+	}
+
+	return YES;
+}
+
++ (BOOL)deletePasswordsForService:(NSString *)service {
+	return [self deletePasswordsForService:service error:NULL];
+}
+
++ (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (![service length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	NSDictionary *query = @{
+		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+		(__bridge id)kSecAttrService: service,
+	};
+
+	OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
+	if (err != errSecSuccess) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+		}
+		return NO;
+	}
+
+	return YES;
+}
+
+
+#pragma mark - RSA - Retrieval
 
 + (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag {
 	return [self fetchRSAPublicKeyForTag:tag error:NULL];
@@ -155,7 +346,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	return keyData;
 }
 
-#pragma mark - Deletion
+#pragma mark - RSA - Deletion
 
 + (BOOL)deleteRSAKeysForTag:(NSString *)tag {
 	return [self deleteRSAKeysForTag:tag error:NULL];
@@ -180,7 +371,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 
-#pragma mark - Generation
+#pragma mark - RSA - Generation
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey {
 	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithTag:nil publicKey:publicKey privateKey:privateKey];
@@ -294,7 +485,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 
-#pragma mark - Importing
+#pragma mark - RSA - Importing
 
 + (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
 	if (tag) {

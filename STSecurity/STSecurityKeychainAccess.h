@@ -27,7 +27,28 @@ NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 };
 
 
-@interface STSecurityKeychainAccess : NSObject
+@interface STSecurityKeychainAccess : NSObject {}
+
+#pragma mark - Password
+
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service;
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
+
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service;
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
+
++ (BOOL)deletePasswordsForService:(NSString *)service;
++ (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error;
+
+
+#pragma mark - RSA
 
 + (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag;
 + (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
