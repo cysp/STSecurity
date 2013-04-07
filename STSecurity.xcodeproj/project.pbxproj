@@ -55,6 +55,9 @@
 /* Begin PBXFileReference section */
 		2C1D8D02161931CB009EB62A /* STSecurityRSAKeyTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityRSAKeyTests.h; sourceTree = "<group>"; };
 		2C1D8D03161931CB009EB62A /* STSecurityRSAKeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAKeyTests.m; sourceTree = "<group>"; };
+		2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Debug.xcconfig"; sourceTree = "<group>"; };
+		2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Coverage.xcconfig"; sourceTree = "<group>"; };
+		2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Release.xcconfig"; sourceTree = "<group>"; };
 		2C55A1571615DAD000C54B8C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccess.h; sourceTree = "<group>"; };
 		2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccess.m; sourceTree = "<group>"; };
@@ -69,13 +72,18 @@
 		2C55A17D161832D400C54B8C /* STSecurityRSAEncryptionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAEncryptionTests.m; sourceTree = "<group>"; };
 		2C5F7EEB161B03D200001538 /* STSecurityKeychainAccessPasswordTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccessPasswordTests.h; sourceTree = "<group>"; };
 		2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccessPasswordTests.m; sourceTree = "<group>"; };
+		2C9C1E571711A2AA003E19B9 /* Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Target.xcconfig; sourceTree = "<group>"; };
+		2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
+		2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Coverage.xcconfig"; sourceTree = "<group>"; };
+		2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
+		2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomization.h; sourceTree = "<group>"; };
 		2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomization.m; sourceTree = "<group>"; };
 		2CBC57EE1615D8C000FF15E9 /* STSecurityTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STSecurityTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57EF1615D8C000FF15E9 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "STSecurityTests-Info.plist"; sourceTree = "<group>"; };
+		2CBC57F91615D8C000FF15E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CBC57FD1615D8C000FF15E9 /* STSecurityRandomizationTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomizationTests.h; sourceTree = "<group>"; };
 		2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomizationTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,9 +110,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C9C1E561711A292003E19B9 /* xcconfig */ = {
+			isa = PBXGroup;
+			children = (
+				2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */,
+				2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */,
+				2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */,
+				2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */,
+				2C9C1E571711A2AA003E19B9 /* Target.xcconfig */,
+				2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */,
+				2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */,
+				2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */,
+			);
+			name = xcconfig;
+			path = STSecurity;
+			sourceTree = "<group>";
+		};
 		2CBC57D21615D8C000FF15E9 = {
 			isa = PBXGroup;
 			children = (
+				2C9C1E561711A292003E19B9 /* xcconfig */,
 				2CBC57E21615D8C000FF15E9 /* STSecurity */,
 				2CBC57F71615D8C000FF15E9 /* STSecurityTests */,
 				2CBC57DF1615D8C000FF15E9 /* Frameworks */,
@@ -150,7 +175,7 @@
 		2CBC57F71615D8C000FF15E9 /* STSecurityTests */ = {
 			isa = PBXGroup;
 			children = (
-				2CBC57F91615D8C000FF15E9 /* STSecurityTests-Info.plist */,
+				2CBC57F91615D8C000FF15E9 /* Info.plist */,
 				2CBC57FD1615D8C000FF15E9 /* STSecurityRandomizationTests.h */,
 				2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */,
 				2C1D8D02161931CB009EB62A /* STSecurityRSAKeyTests.h */,
@@ -292,96 +317,71 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2CBC58001615D8C000FF15E9 /* Debug */ = {
+		2C9C1E5B1711A2FF003E19B9 /* Coverage */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				SDKROOT = iphoneos;
 			};
-			name = Debug;
+			name = Coverage;
 		};
-		2CBC58011615D8C000FF15E9 /* Release */ = {
+		2C9C1E5C1711A2FF003E19B9 /* Coverage */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = YES;
-				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = YES;
-				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"NDEBUG=1",
-					"NS_BLOCK_ASSERTIONS=1",
-				);
-				GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS = YES;
-				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Coverage;
 		};
-		2CBC58031615D8C000FF15E9 /* Debug */ = {
+		2C9C1E5D1711A2FF003E19B9 /* Coverage */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/STSecurity.dst;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = STSecurity;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		2CBC58041615D8C000FF15E9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DSTROOT = /tmp/STSecurity.dst;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = STSecurity;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		2CBC58061615D8C000FF15E9 /* Debug */ = {
-			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				INFOPLIST_FILE = "STSecurityTests/STSecurityTests-Info.plist";
+				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				PRODUCT_NAME = STSecurityTests;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Coverage;
+		};
+		2CBC58001615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2CBC58011615D8C000FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2CBC58031615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		2CBC58041615D8C000FF15E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		2CBC58061615D8C000FF15E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				INFOPLIST_FILE = STSecurityTests/Info.plist;
 				PRODUCT_NAME = STSecurityTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -389,12 +389,13 @@
 		};
 		2CBC58071615D8C000FF15E9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
-				INFOPLIST_FILE = "STSecurityTests/STSecurityTests-Info.plist";
+				INFOPLIST_FILE = STSecurityTests/Info.plist;
 				PRODUCT_NAME = STSecurityTests;
 				WRAPPER_EXTENSION = octest;
 			};
@@ -407,6 +408,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58001615D8C000FF15E9 /* Debug */,
+				2C9C1E5B1711A2FF003E19B9 /* Coverage */,
 				2CBC58011615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -416,6 +418,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58031615D8C000FF15E9 /* Debug */,
+				2C9C1E5C1711A2FF003E19B9 /* Coverage */,
 				2CBC58041615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -425,6 +428,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58061615D8C000FF15E9 /* Debug */,
+				2C9C1E5D1711A2FF003E19B9 /* Coverage */,
 				2CBC58071615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

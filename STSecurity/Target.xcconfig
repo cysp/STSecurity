@@ -1,0 +1,5 @@
+//  Copyright (c) 2013 Scott Talbot. All rights reserved.
+
+DSTROOT = /tmp/STSecurity.dst
+SKIP_INSTALL = YES
+PRODUCT_NAME = STSecurity

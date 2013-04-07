@@ -1,0 +1,7 @@
+//  Copyright (c) 2013 Scott Talbot. All rights reserved.
+
+#include "Project.xcconfig"
+
+GCC_OPTIMIZATION_LEVEL = 0
+
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
