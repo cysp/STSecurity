@@ -245,6 +245,13 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (!tag) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPublic,
@@ -286,6 +293,13 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (!tag) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrKeyClass: (__bridge id)kSecAttrKeyClassPrivate,
@@ -321,7 +335,20 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key error:(NSError *__autoreleasing *)error {
+	if (!key) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
 	SecKeyRef keyRef = key.keyRef;
+	if (!keyRef) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
 
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
@@ -354,6 +381,13 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)deleteRSAKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (!tag) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
 	NSDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 		(__bridge id)kSecAttrKeyType: (__bridge id)kSecAttrKeyTypeRSA,
