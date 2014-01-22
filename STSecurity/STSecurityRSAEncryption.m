@@ -31,7 +31,7 @@ static inline SecPadding STSecurityRSAPaddingToSecPadding(enum STSecurityRSAPadd
 		case STSecurityRSAPaddingOAEP:
 			return kSecPaddingOAEP;
 	}
-	NSCAssert(0, @"STSecurityPadding unknown value: %u", padding);
+	NSCAssert(0, @"STSecurityPadding unknown value: %lu", (unsigned long)padding);
 	return kSecPaddingNone;
 }
 
