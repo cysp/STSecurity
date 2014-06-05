@@ -5,10 +5,13 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityRSAKeyTests.h"
+@import XCTest;
 
 #import "STSecurityRSAKey+Internal.h"
 
+
+@interface STSecurityRSAKeyTests : XCTestCase
+@end
 
 @implementation STSecurityRSAKeyTests
 
@@ -18,9 +21,9 @@
 #if NS_BLOCK_ASSERTIONS
 		key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:NULL keyData:nil];
 #else
-		STAssertThrows(key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:NULL keyData:nil], @"Creating public key with neither keyRef nor data didn't throw");
+		XCTAssertThrows(key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:NULL keyData:nil], @"Creating public key with neither keyRef nor data didn't throw");
 #endif
-		STAssertNil(key, @"Created public key with neither keyRef nor keyData");
+		XCTAssertNil(key, @"Created public key with neither keyRef nor keyData");
 	}
 }
 
@@ -30,9 +33,9 @@
 #if NS_BLOCK_ASSERTIONS
 		key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:NULL];
 #else
-		STAssertThrows(key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:NULL], @"Creating private key with NULL keyRef");
+		XCTAssertThrows(key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:NULL], @"Creating private key with NULL keyRef");
 #endif
-		STAssertNil(key, @"Created private key with NULL keyRef");
+		XCTAssertNil(key, @"Created private key with NULL keyRef");
 	}
 }
 

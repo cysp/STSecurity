@@ -5,13 +5,16 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityKeychainAccessPasswordTests.h"
+@import XCTest;
 
 #import "STSecurityKeychainAccess.h"
 
 
 static NSString * const service = @"STSecurityTest";
 
+
+@interface STSecurityKeychainAccessPasswordTests : XCTestCase
+@end
 
 @implementation STSecurityKeychainAccessPasswordTests
 
@@ -25,8 +28,8 @@ static NSString * const service = @"STSecurityTest";
 	{
 		NSError *error = nil;
 		NSString * const password = [STSecurityKeychainAccess passwordForUsername:username service:service error:&error];
-		STAssertNil(password, nil);
-		STAssertNotNil(error, nil);
+		XCTAssertNil(password);
+		XCTAssertNotNil(error);
 	}
 }
 
@@ -37,16 +40,16 @@ static NSString * const service = @"STSecurityTest";
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service error:&error];
-		STAssertTrue(status, nil);
-		STAssertNil(error, nil);
+		XCTAssertTrue(status);
+		XCTAssertNil(error);
 	}
 
 	{
 		NSError *error = nil;
 		NSString * const fetchedPassword = [STSecurityKeychainAccess passwordForUsername:username service:service error:&error];
-		STAssertNotNil(fetchedPassword, nil);
-		STAssertNil(error, @"error: %@", error);
-		STAssertEqualObjects(password, fetchedPassword, nil);
+		XCTAssertNotNil(fetchedPassword);
+		XCTAssertNil(error, @"error: %@", error);
+		XCTAssertEqualObjects(password, fetchedPassword);
 	}
 }
 
@@ -57,51 +60,51 @@ static NSString * const service = @"STSecurityTest";
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service error:&error];
-		STAssertTrue(status, nil);
-		STAssertNil(error, nil);
+		XCTAssertTrue(status);
+		XCTAssertNil(error);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service error:&error];
-		STAssertFalse(status, nil);
-		STAssertNotNil(error, @"error: %@", error);
+		XCTAssertFalse(status);
+		XCTAssertNotNil(error, @"error: %@", error);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleAlways overwriteExisting:YES error:&error];
-		STAssertTrue(status, nil);
-		STAssertNil(error, @"error: %@", error);
+		XCTAssertTrue(status);
+		XCTAssertNil(error, @"error: %@", error);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service error:&error];
-		STAssertFalse(status, nil);
-		STAssertNotNil(error, @"error: %@", error);
+		XCTAssertFalse(status);
+		XCTAssertNotNil(error, @"error: %@", error);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly overwriteExisting:YES error:&error];
-		STAssertTrue(status, nil);
-		STAssertNil(error, @"error: %@", error);
+		XCTAssertTrue(status);
+		XCTAssertNil(error, @"error: %@", error);
 	}
 
 	{
 		NSError *error = nil;
 		NSString * const fetchedPassword = [STSecurityKeychainAccess passwordForUsername:username service:service error:&error];
-		STAssertNotNil(fetchedPassword, nil);
-		STAssertNil(error, @"error: %@", error);
-		STAssertEqualObjects(password, fetchedPassword, nil);
+		XCTAssertNotNil(fetchedPassword);
+		XCTAssertNil(error, @"error: %@", error);
+		XCTAssertEqualObjects(password, fetchedPassword);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL const status = [STSecurityKeychainAccess deletePasswordForUsername:username service:service error:&error];
-		STAssertTrue(status, nil);
-		STAssertNil(error, @"error: %@", error);
+		XCTAssertTrue(status);
+		XCTAssertNil(error, @"error: %@", error);
 	}
 }
 

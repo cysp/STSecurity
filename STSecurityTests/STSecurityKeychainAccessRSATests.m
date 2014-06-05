@@ -5,23 +5,26 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityKeychainAccessRSATests.h"
+@import XCTest;
 
 #import "STSecurityKeychainAccess.h"
 
+
+@interface STSecurityKeychainAccessRSATests : XCTestCase
+@end
 
 @implementation STSecurityKeychainAccessRSATests
 
 - (void)testFetchNonexistent {
 	{
 		STSecurityRSAPublicKey *key = [STSecurityKeychainAccess fetchRSAPublicKeyForTag:@"STSecurityTest.nonexistent"];
-		STAssertNil(key, @"Keychain returned key for nonexistent tag");
+		XCTAssertNil(key, @"Keychain returned key for nonexistent tag");
 	}
 	{
 		NSError *error = nil;
 		STSecurityRSAPublicKey *key = [STSecurityKeychainAccess fetchRSAPublicKeyForTag:@"STSecurityTest.nonexistent" error:&error];
-		STAssertNil(key, @"Keychain returned key for nonexistent tag");
-		STAssertNotNil(error, @"Keychain returned nil error");
+		XCTAssertNil(key, @"Keychain returned key for nonexistent tag");
+		XCTAssertNotNil(error, @"Keychain returned nil error");
 	}
 }
 
@@ -29,9 +32,9 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:@"STSecurityTest.nonexistent" error:&error];
-		STAssertFalse(status, @"Keychain returned success deleting nonexistent key");
-		STAssertNotNil(error, @"Keychain returned nil error");
-		STAssertEquals(error.code, errSecItemNotFound, @"Keychain returned error.code not ItemNotFound: %d", error.code);
+		XCTAssertFalse(status, @"Keychain returned success deleting nonexistent key");
+		XCTAssertNotNil(error, @"Keychain returned nil error");
+		XCTAssertEqual(error.code, errSecItemNotFound, @"Keychain returned error.code not ItemNotFound: %ld", (long)error.code);
 	}
 }
 
@@ -44,17 +47,17 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not generate key pair");
-		STAssertNil(error, @"Key generation returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not generate key pair");
+		XCTAssertNil(error, @"Key generation returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
@@ -75,11 +78,11 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:1024 insertedIntoKeychainWithTag:nil publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertFalse(status, @"Keychain generated key pair without tags");
-		STAssertNotNil(error, @"Key generation returned nil error");
+		XCTAssertFalse(status, @"Keychain generated key pair without tags");
+		XCTAssertNotNil(error, @"Key generation returned nil error");
 	}
-	STAssertNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNil(privateKey, @"Key generation resulted in no private key");
 }
 
 - (void)testGenerationAndFetch {
@@ -91,52 +94,52 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not generate key pair");
-		STAssertNil(error, @"Key generation returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not generate key pair");
+		XCTAssertNil(error, @"Key generation returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
 	NSData *privateKeyData = nil;
 	{
 		NSError *error = nil;
 		privateKeyData = [STSecurityKeychainAccess fetchKeyDataForRSAPrivateKey:privateKey error:&error];
-		STAssertNotNil(privateKeyData, @"Could not fetch private key data");
-		STAssertNil(error, @"Private key data fetch returned error: %@", error);
+		XCTAssertNotNil(privateKeyData, @"Could not fetch private key data");
+		XCTAssertNil(error, @"Private key data fetch returned error: %@", error);
 	}
 
 	STSecurityRSAPublicKey *fetchedPublicKey = nil;
 	{
 		NSError *error = nil;
 		fetchedPublicKey = [STSecurityKeychainAccess fetchRSAPublicKeyForTag:keyTag error:&error];
-		STAssertNotNil(fetchedPublicKey, @"Keychain could not find public key");
-		STAssertNil(error, @"Keychain fetch returned error: %@", error);
+		XCTAssertNotNil(fetchedPublicKey, @"Keychain could not find public key");
+		XCTAssertNil(error, @"Keychain fetch returned error: %@", error);
 	}
 
 	STSecurityRSAPrivateKey *fetchedPrivateKey = nil;
 	{
 		NSError *error = nil;
 		fetchedPrivateKey = [STSecurityKeychainAccess fetchRSAPrivateKeyForTag:keyTag error:&error];
-		STAssertNotNil(fetchedPrivateKey, @"Keychain could not find private key");
-		STAssertNil(error, @"Keychain fetch returned error: %@", error);
+		XCTAssertNotNil(fetchedPrivateKey, @"Keychain could not find private key");
+		XCTAssertNil(error, @"Keychain fetch returned error: %@", error);
 	}
 
 	NSData *fetchedPrivateKeyData = nil;
 	{
 		NSError *error = nil;
 		fetchedPrivateKeyData = [STSecurityKeychainAccess fetchKeyDataForRSAPrivateKey:fetchedPrivateKey error:&error];
-		STAssertNotNil(fetchedPrivateKeyData, @"Could not fetch private key data");
-		STAssertNil(error, @"Private key data fetch returned error: %@", error);
+		XCTAssertNotNil(fetchedPrivateKeyData, @"Could not fetch private key data");
+		XCTAssertNil(error, @"Private key data fetch returned error: %@", error);
 	}
 
-	STAssertEqualObjects(publicKey.keyData, fetchedPublicKey.keyData, @"Fetched public key doesn't equal original");
-	STAssertEqualObjects(privateKeyData, fetchedPrivateKeyData, @"Fetched private key doesn't equal original");
+	XCTAssertEqualObjects(publicKey.keyData, fetchedPublicKey.keyData, @"Fetched public key doesn't equal original");
+	XCTAssertEqualObjects(privateKeyData, fetchedPrivateKeyData, @"Fetched private key doesn't equal original");
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
@@ -149,24 +152,24 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not generate key pair");
-		STAssertNil(error, @"Key generation returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not generate key pair");
+		XCTAssertNil(error, @"Key generation returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertFalse(status, @"Keychain generated conflicting key pair");
-		STAssertNotNil(error, @"Key generation returned no error");
+		XCTAssertFalse(status, @"Keychain generated conflicting key pair");
+		XCTAssertNotNil(error, @"Key generation returned no error");
 	}
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
@@ -283,17 +286,17 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess insertRSAKeypairWithPublicKeyData:publicKeyData privateKeyData:privateKeyData intoKeychainAccessibility:STSecurityKeychainItemAccessibleAlways accessGroup:nil tag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not insertion key pair");
-		STAssertNil(error, @"Key insertion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not insertion key pair");
+		XCTAssertNil(error, @"Key insertion returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key insertion resulted in no public key");
-	STAssertNotNil(privateKey, @"Key insertion resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key insertion resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key insertion resulted in no private key");
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 

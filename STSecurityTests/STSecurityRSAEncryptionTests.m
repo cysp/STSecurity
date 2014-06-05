@@ -5,12 +5,15 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityRSAEncryptionTests.h"
+@import XCTest;
 
 #import "STSecurityKeychainAccess.h"
 #import "STSecurityRSAEncryption.h"
 #import "STSecurityRandomization.h"
 
+
+@interface STSecurityRSAEncryptionTests : XCTestCase
+@end
 
 @implementation STSecurityRSAEncryptionTests
 
@@ -25,31 +28,31 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not generate key pair");
-		STAssertNil(error, @"Key generation returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not generate key pair");
+		XCTAssertNil(error, @"Key generation returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
 	{
 		NSError *error = nil;
 		NSData *data = [STSecurityRSAEncryption dataByEncryptingData:nil withPublicKey:publicKey padding:STSecurityRSAPaddingPKCS1 error:&error];
-		STAssertNil(data, nil);
-		STAssertNil(error, nil);
+		XCTAssertNil(data);
+		XCTAssertNil(error);
 	}
 
 	{
 		NSError *error = nil;
 		NSData *data = [STSecurityRSAEncryption dataByEncryptingData:[NSData data] withPublicKey:publicKey padding:STSecurityRSAPaddingPKCS1 error:&error];
-		STAssertNotNil(data, nil);
-		STAssertNil(error, nil);
+		XCTAssertNotNil(data);
+		XCTAssertNil(error);
 	}
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
@@ -61,35 +64,35 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess generateRSAKeypairOfSize:keySize insertedIntoKeychainWithTag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not generate key pair");
-		STAssertNil(error, @"Key generation returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not generate key pair");
+		XCTAssertNil(error, @"Key generation returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key generation resulted in no public key");
-	STAssertNotNil(privateKey, @"Key generation resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key generation resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key generation resulted in no private key");
 
 	NSData *dataEncrypted = nil;
 	{
 		NSError *error = nil;
 		dataEncrypted = [STSecurityRSAEncryption dataByEncryptingData:data withPublicKey:publicKey padding:padding error:&error];
-		STAssertNotNil(dataEncrypted, @"Encryption returned nil data");
-		STAssertNil(error, @"Encryption returned error: %@", error);
+		XCTAssertNotNil(dataEncrypted, @"Encryption returned nil data");
+		XCTAssertNil(error, @"Encryption returned error: %@", error);
 	}
-	STAssertFalse([data isEqualToData:dataEncrypted], @"Encrypted data isEqual: initial");
+	XCTAssertFalse([data isEqualToData:dataEncrypted], @"Encrypted data isEqual: initial");
 
 	NSData *dataDecrypted = nil;
 	{
 		NSError *error = nil;
 		dataDecrypted = [STSecurityRSAEncryption dataByDecryptingData:dataEncrypted withPrivateKey:privateKey padding:padding error:&error];
-		STAssertNotNil(dataDecrypted, @"Decryption returned nil data");
-		STAssertNil(error, @"Decryption returned error: %@", error);
+		XCTAssertNotNil(dataDecrypted, @"Decryption returned nil data");
+		XCTAssertNil(error, @"Decryption returned error: %@", error);
 	}
-	STAssertEqualObjects(data, dataDecrypted, @"Decrypted data doesn't match input");
+	XCTAssertEqualObjects(data, dataDecrypted, @"Decrypted data doesn't match input");
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
@@ -260,26 +263,26 @@
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess insertRSAKeypairWithPublicKeyData:publicKeyData privateKeyData:privateKeyData intoKeychainAccessibility:STSecurityKeychainItemAccessibleAlways accessGroup:nil tag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
-		STAssertTrue(status, @"Keychain could not insertion key pair");
-		STAssertNil(error, @"Key insertion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not insertion key pair");
+		XCTAssertNil(error, @"Key insertion returned error: %@", error);
 	}
-	STAssertNotNil(publicKey, @"Key insertion resulted in no public key");
-	STAssertNotNil(privateKey, @"Key insertion resulted in no private key");
+	XCTAssertNotNil(publicKey, @"Key insertion resulted in no public key");
+	XCTAssertNotNil(privateKey, @"Key insertion resulted in no private key");
 
 	NSData *ciphertextDataDecrypted = nil;
 	{
 		NSError *error = nil;
 		ciphertextDataDecrypted = [STSecurityRSAEncryption dataByDecryptingData:ciphertextData withPrivateKey:privateKey padding:STSecurityRSAPaddingPKCS1 error:&error];
-		STAssertNotNil(ciphertextDataDecrypted, nil);
-		STAssertNil(error, @"error: %@", error);
+		XCTAssertNotNil(ciphertextDataDecrypted);
+		XCTAssertNil(error, @"error: %@", error);
 	}
-	STAssertEqualObjects(ciphertextDataDecrypted, plaintextDataExpected, nil);
+	XCTAssertEqualObjects(ciphertextDataDecrypted, plaintextDataExpected);
 
 	{
 		NSError *error = nil;
 		BOOL status = [STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:&error];
-		STAssertTrue(status, @"Keychain could not delete public key");
-		STAssertNil(error, @"Public key deletion returned error: %@", error);
+		XCTAssertTrue(status, @"Keychain could not delete public key");
+		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
 
