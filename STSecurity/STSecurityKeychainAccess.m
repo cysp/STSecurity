@@ -249,7 +249,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
 		}
-		return NO;
+		return nil;
 	}
 
 	NSDictionary * const query = @{
@@ -297,7 +297,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
 		}
-		return NO;
+		return nil;
 	}
 
 	NSDictionary * const query = @{
@@ -339,7 +339,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
 		}
-		return NO;
+		return nil;
 	}
 
 	SecKeyRef keyRef = key.keyRef;
@@ -347,7 +347,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
 		}
-		return NO;
+		return nil;
 	}
 
 	NSDictionary * const query = @{
