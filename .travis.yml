@@ -4,6 +4,8 @@ branches:
         - master
 before_install:
     - bundle install --path .bundle
-script: bundle exec rake -s analyze:${CI_PLATFORM}
+before_script:
+    - bundle exec rake -s analyze:${CI_PLATFORM}
+script: bundle exec rake -s test:${CI_PLATFORM}
 env:
     - CI_PLATFORM=ios
