@@ -69,6 +69,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (![username length] || ![service length]) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -152,6 +156,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (![username length] || ![service length]) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -185,6 +193,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (![username length] || ![service length]) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -214,6 +226,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (![service length]) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -245,6 +261,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (!tag) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -293,6 +313,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (!tag) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -335,6 +359,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key error:(NSError *__autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (!key) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -381,6 +409,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)deleteRSAKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (!tag) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
@@ -429,6 +461,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (tag) {
 		NSDictionary * const query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
@@ -523,6 +559,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 #pragma mark - RSA - Importing
 
 + (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
 	if (tag) {
 		NSDictionary * const query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
