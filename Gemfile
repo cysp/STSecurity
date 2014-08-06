@@ -6,4 +6,4 @@ gem 'rake'
 
 gem 'stcoverage'
 gem 'stcoveralls'
-gem 'xctool'
+gem 'xcodebuild'

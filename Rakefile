@@ -7,7 +7,7 @@ rescue LoadError
 end
 
 require 'pathname'
-require 'xctool'
+require 'xcodebuild'
 
 begin
   require 'stcoverage'
@@ -61,20 +61,20 @@ end
 
 module BuildCommands
   def clean
-    Xctool.exec(@xctool_args, 'clean')
+    Xcodebuild.exec(@xcodebuild_args, 'clean')
   end
 
   def analyze
-    Xctool.exec(@xctool_args, 'analyze', ['-failOnWarnings'])
+    Xcodebuild.exec(@xcodebuild_args, 'analyze')
   end
 
   def test
-    xctool_args = @xctool_args + [
+    xcodebuild_args = @xcodebuild_args + [
       '-configuration', 'Debug',
       'GCC_GENERATE_TEST_COVERAGE_FILES=YES',
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
     ]
-    Xctool.exec(xctool_args, 'test')
+    Xcodebuild.exec(xcodebuild_args, 'test')
   end
 
   if defined?(Stcoverage)
@@ -122,10 +122,10 @@ module BuildCommands
 
   if defined?(Stcoverage)
     def stcoverage
-      xctool_args = @xctool_args + [
+      xcodebuild_args = @xcodebuild_args + [
         '-configuration', 'Debug',
       ]
-      object_file_path = Xctool.platform_object_files_path(xctool_args)
+      object_file_path = Xcodebuild.platform_object_files_path(xcodebuild_args)
       return {} if object_file_path.nil?
       object_file_path = Pathname.new(object_file_path)
       return {} unless object_file_path.exist?
@@ -137,7 +137,7 @@ module BuildCommands
 end
 
 class IosSim
-  @xctool_args = [
+  @xcodebuild_args = [
     '-project', "#{PROJECTNAME}.xcodeproj",
     '-scheme', "#{PROJECTNAME}",
     '-sdk', 'iphonesimulator',
