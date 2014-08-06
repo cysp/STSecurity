@@ -26,6 +26,10 @@ typedef NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 	STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly,
 };
 
+typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
+    STSecurityKeychainItemAccessControlRequireUserPresence = 0b1,
+};
+
 
 @interface STSecurityKeychainAccess : NSObject {}
 
@@ -39,6 +43,9 @@ typedef NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting;
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
+#if defined(__IPHONE_8_0)
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessControl:(NSInteger)accessControl overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
+#endif
 
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service;
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
