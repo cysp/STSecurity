@@ -39,6 +39,8 @@
 }
 
 
+#if !defined(TRAVIS) || !(TRAVIS + 0)
+
 - (void)_st_testGenerationOfSize:(NSUInteger)keySize {
 	NSString * const keyTag = @"STSecurityTest.testGeneration";
 	STSecurityRSAPublicKey *publicKey = nil;
@@ -172,6 +174,7 @@
 		XCTAssertNil(error, @"Public key deletion returned error: %@", error);
 	}
 }
+#endif
 
 - (void)testInsertion {
 	unsigned char const pub_bytes[] = {

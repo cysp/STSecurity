@@ -17,6 +17,8 @@
 
 @implementation STSecurityRSAEncryptionTests
 
+#if !defined(TRAVIS) || !(TRAVIS + 0)
+
 - (void)testEncryptionInvalid {
 	NSString * const keyTag = @"STSecurityTest.testEncryptionInvalid";
 	STSecurityRSAPublicKey *publicKey = nil;
@@ -119,6 +121,7 @@
 	[data setLength:64];
 	[self _st_testEncryptionRoundtripWithData:data keySize:1024 padding:STSecurityRSAPaddingOAEP];
 }
+#endif
 
 - (void)testEncryptionInserted {
 	NSString * const keyTag = @"STSecurityTest.testInsertion";
