@@ -265,7 +265,7 @@
 
 	{
 		NSError *error = nil;
-		BOOL status = [STSecurityKeychainAccess insertRSAKeypairWithPublicKeyData:publicKeyData privateKeyData:privateKeyData intoKeychainAccessibility:STSecurityKeychainItemAccessibleAlways accessGroup:nil tag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
+		BOOL status = [STSecurityKeychainAccess insertRSAKeypairWithPublicKeyData:publicKeyData privateKeyData:privateKeyData intoKeychainWithAccessibility:STSecurityKeychainItemAccessibleAlways tag:keyTag publicKey:&publicKey privateKey:&privateKey error:&error];
 		XCTAssertTrue(status, @"Keychain could not insertion key pair");
 		XCTAssertNil(error, @"Key insertion returned error: %@", error);
 	}

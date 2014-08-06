@@ -54,21 +54,17 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:NO error:error];
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:NO error:error];
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:overwriteExisting error:NULL];
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:NULL];
 }
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:nil overwriteExisting:overwriteExisting error:error];
+	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:error];
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
-	return [self setPassword:password forUsername:username service:service withAccessibility:accessibility accessGroup:nil overwriteExisting:overwriteExisting error:error];
-}
-
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -173,6 +169,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		(__bridge id)kSecAttrAccount: username,
 		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
 	};
+
 	CFDataRef result = NULL;
 	OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
 	if (err != errSecSuccess) {
@@ -453,14 +450,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessGroup:nil tag:tag publicKey:publicKey privateKey:privateKey error:error];
+	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessibility:STSecurityKeychainItemAccessibleAlways tag:tag publicKey:publicKey privateKey:privateKey error:error];
 }
 
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
-	return [self generateRSAKeypairOfSize:size insertedIntoKeychainWithAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked accessGroup:accessGroup tag:tag publicKey:publicKey privateKey:privateKey error:error];
-}
-
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey *__autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey *__autoreleasing *)privateKey error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -490,17 +483,11 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (tag) {
 			publicKeyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
 			publicKeyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
-			if (accessGroup) {
-				publicKeyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;
-			}
 		}
 		NSMutableDictionary * const privateKeyAttrs = [NSMutableDictionary dictionary];
 		if (tag) {
 			privateKeyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
 			privateKeyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
-			if (accessGroup) {
-				privateKeyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;
-			}
 		}
 		NSDictionary * const parameters = @{
 			(__bridge id)kSecAttrKeyType: (__bridge id)kSecAttrKeyTypeRSA,
@@ -558,7 +545,7 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 #pragma mark - RSA - Importing
 
-+ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessGroup:(NSString *)accessGroup tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
++ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -644,9 +631,6 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (tag) {
 			keyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
 			keyAttrs[(__bridge id)kSecAttrIsPermanent] = (__bridge id)kCFBooleanTrue;
-			if (accessGroup) {
-				keyAttrs[(__bridge id)kSecAttrAccessGroup] = accessGroup;
-			}
 		}
 
 		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionaryWithDictionary:keyAttrs];
