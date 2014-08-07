@@ -92,12 +92,17 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	NSData *persistentRef = nil;
 
 	{
-		NSDictionary *query = @{
+		NSMutableDictionary *query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 			(__bridge id)kSecAttrService: service,
 			(__bridge id)kSecAttrAccount: username,
 			(__bridge id)kSecReturnPersistentRef: (__bridge id)kCFBooleanTrue,
-		};
+        }.mutableCopy;
+#if defined(__IPHONE_8_0)
+        if (&kSecUseNoAuthenticationUI) {
+            query[(__bridge id)kSecUseNoAuthenticationUI] = (__bridge id)kCFBooleanTrue;
+        }
+#endif
 		CFDataRef result = NULL;
 		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
 		if (err == errSecSuccess) {
