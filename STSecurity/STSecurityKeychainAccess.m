@@ -60,11 +60,16 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting {
 	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:NULL];
 }
+
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
 	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:error];
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
+	return [self setPassword:password forUsername:username service:service withAccessibility:accessibility accessControl:0 overwriteExisting:overwriteExisting error:error];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility accessControl:(NSInteger)accessControl overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -87,12 +92,17 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	NSData *persistentRef = nil;
 
 	{
-		NSDictionary *query = @{
+		NSMutableDictionary *query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 			(__bridge id)kSecAttrService: service,
 			(__bridge id)kSecAttrAccount: username,
 			(__bridge id)kSecReturnPersistentRef: (__bridge id)kCFBooleanTrue,
-		};
+        }.mutableCopy;
+#if defined(__IPHONE_8_0)
+        if (&kSecUseNoAuthenticationUI) {
+            query[(__bridge id)kSecUseNoAuthenticationUI] = (__bridge id)kCFBooleanTrue;
+        }
+#endif
 		CFDataRef result = NULL;
 		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
 		if (err == errSecSuccess) {
@@ -107,15 +117,24 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return NO;
 	}
 
-	CFTypeRef accessible = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+	CFTypeRef accessibilityRef = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+	NSMutableDictionary *attributes = @{
+		(__bridge id)kSecAttrAccessible: (__bridge id)accessibilityRef,
+		(__bridge id)kSecValueData: passwordData,
+	}.mutableCopy;
+#if defined(__IPHONE_8_0)
+	if (&kSecAttrAccessControl && &SecAccessControlCreateWithFlags) {
+		SecAccessControlRef accessControlRef = SecAccessControlCreateWithFlags(NULL, accessibilityRef, (SecAccessControlCreateFlags)accessControl, NULL);
+		if (accessControlRef) {
+			attributes[(__bridge id)kSecAttrAccessControl] = (__bridge id)accessControlRef;
+			CFRelease(accessControlRef);
+		}
+	}
+#endif
 
 	if (persistentRef) {
 		NSDictionary *query = @{
 			(__bridge id)kSecValuePersistentRef: persistentRef,
-		};
-		NSDictionary *attributes = @{
-			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
-			(__bridge id)kSecValueData: passwordData,
 		};
 		OSStatus err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
 		if (err != errSecSuccess) {
@@ -125,13 +144,9 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			return NO;
 		}
 	} else {
-		NSDictionary *attributes = @{
-			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
-			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
-			(__bridge id)kSecAttrService: service,
-			(__bridge id)kSecAttrAccount: username,
-			(__bridge id)kSecValueData: passwordData,
-		};
+		attributes[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+		attributes[(__bridge id)kSecAttrService] = service;
+		attributes[(__bridge id)kSecAttrAccount] = username;
 		OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attributes, NULL);
 		if (err != errSecSuccess) {
 			if (error) {
