@@ -72,8 +72,12 @@ static NSString * const service = @"STSecurityTest";
 	}
 
 	{
+		STSecurityKeychainWritingOptions * const options = [[STSecurityKeychainWritingOptions alloc] init];
+		options.accessibility = STSecurityKeychainItemAccessibleAlways;
+		options.overwriteExisting = YES;
+
 		NSError *error = nil;
-		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleAlways overwriteExisting:YES error:&error];
+		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withOptions:options error:&error];
 		XCTAssertTrue(status);
 		XCTAssertNil(error, @"error: %@", error);
 	}
@@ -86,8 +90,12 @@ static NSString * const service = @"STSecurityTest";
 	}
 
 	{
+		STSecurityKeychainWritingOptions * const options = [[STSecurityKeychainWritingOptions alloc] init];
+		options.accessibility = STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly;
+		options.overwriteExisting = YES;
+
 		NSError *error = nil;
-		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly overwriteExisting:YES error:&error];
+		BOOL const status = [STSecurityKeychainAccess setPassword:password forUsername:username service:service withOptions:options error:&error];
 		XCTAssertTrue(status);
 		XCTAssertNil(error, @"error: %@", error);
 	}

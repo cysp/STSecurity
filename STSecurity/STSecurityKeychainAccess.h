@@ -24,27 +24,66 @@ typedef NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 	STSecurityKeychainItemAccessibleAfterFirstUnlockThisDeviceOnly,
 	STSecurityKeychainItemAccessibleAlways,
 	STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly,
+#if defined(__IPHONE_8_0)
+	STSecurityKeychainItemAccessibleWhenPasscodeSetThisDeviceOnly,
+#endif
 };
+
+#if defined(__IPHONE_8_0)
+typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
+	STSecurityKeychainItemAccessControlRequireUserPresence = 0b1,
+};
+#endif
+
+@protocol STSecurityKeychainReadingOptions <NSObject>
+@property (nonatomic,copy,readonly) NSString *prompt;
+@end
+@interface STSecurityKeychainReadingOptions : NSObject<STSecurityKeychainReadingOptions>
+@property (nonatomic,copy) NSString *prompt;
+@end
+
+@protocol STSecurityKeychainWritingOptions <NSObject>
+@property (nonatomic,assign,readonly) BOOL overwriteExisting;
+@property (nonatomic,assign,readonly) STSecurityKeychainItemAccessibility accessibility;
+#if defined(__IPHONE_8_0)
+@property (nonatomic,assign,readonly) NSInteger accessControl;
+#endif
+@property (nonatomic,copy,readonly) NSString *prompt;
+@end
+@interface STSecurityKeychainWritingOptions : NSObject<STSecurityKeychainWritingOptions>
+@property (nonatomic,assign) BOOL overwriteExisting;
+@property (nonatomic,assign) STSecurityKeychainItemAccessibility accessibility;
+#if defined(__IPHONE_8_0)
+@property (nonatomic,assign) NSInteger accessControl;
+#endif
+@property (nonatomic,copy) NSString *prompt;
+@end
 
 
 @interface STSecurityKeychainAccess : NSObject {}
 
 #pragma mark - Password
 
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service;
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
+
 + (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service;
 + (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainReadingOptions>)options error:(NSError * __autoreleasing *)error;
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service;
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting;
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
 
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service;
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
 
 + (BOOL)deletePasswordsForService:(NSString *)service;
 + (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error;
++ (BOOL)deletePasswordsForService:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
 
 
 #pragma mark - RSA

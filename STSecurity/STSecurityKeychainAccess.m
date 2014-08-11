@@ -25,6 +25,20 @@
 NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError";
 
 
+@implementation STSecurityKeychainReadingOptions
+@synthesize prompt = _prompt;
+@end
+
+@implementation STSecurityKeychainWritingOptions
+@synthesize overwriteExisting = _overwriteExisting;
+@synthesize accessibility = _accessibility;
+#if defined(__IPHONE_8_0)
+@synthesize accessControl = _accessControl;
+#endif
+@synthesize prompt = _prompt;
+@end
+
+
 static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecurityKeychainItemAccessibility accessibility) {
 	switch (accessibility) {
 		case STSecurityKeychainItemAccessibleWhenUnlocked:
@@ -39,6 +53,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			return kSecAttrAccessibleAlways;
 		case STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly:
 			return kSecAttrAccessibleAlwaysThisDeviceOnly;
+#if defined(__IPHONE_8_0)
+		case STSecurityKeychainItemAccessibleWhenPasscodeSetThisDeviceOnly:
+			return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly;
+#endif
 	}
 	NSCAssert(0, @"unreachable", nil);
 	return kSecAttrAccessibleWhenUnlocked;
@@ -47,24 +65,72 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 
 @implementation STSecurityKeychainAccess
 
+#pragma mark - Password - Presence
+
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service {
+	return [self containsPasswordForUsername:username service:service error:NULL];
+}
+
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError *__autoreleasing *)error {
+	if (error) {
+		*error = nil;
+	}
+
+	if (![username length] || ![service length]) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
+	NSDictionary *attributes = nil;
+
+	{
+		NSMutableDictionary *query = @{
+			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+			(__bridge id)kSecAttrService: service,
+			(__bridge id)kSecAttrAccount: username,
+			(__bridge id)kSecReturnAttributes: (__bridge id)kCFBooleanTrue,
+		}.mutableCopy;
+#if defined(__IPHONE_8_0)
+		if (&kSecUseNoAuthenticationUI) {
+			query[(__bridge id)kSecUseNoAuthenticationUI] = (__bridge id)kCFBooleanTrue;
+		}
+#endif
+		CFDictionaryRef result = NULL;
+		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+		if (err == errSecInteractionNotAllowed) {
+			attributes = (__bridge_transfer NSDictionary *)result ?: @{};
+		}
+		if (err == errSecSuccess) {
+			attributes = (__bridge_transfer NSDictionary *)result;
+		}
+	}
+
+	return !!attributes;
+}
+
 #pragma mark - Password - Insertion
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service {
-	return [self setPassword:password forUsername:username service:service error:NULL];
+	return [self setPassword:password forUsername:username service:service withOptions:nil error:NULL];
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:NO error:error];
+	return [self setPassword:password forUsername:username service:service withOptions:nil error:error];
 }
 
 + (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:NULL];
-}
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
-	return [self setPassword:password forUsername:username service:service withAccessibility:STSecurityKeychainItemAccessibleWhenUnlocked overwriteExisting:overwriteExisting error:error];
+	return [self setPassword:password forUsername:username service:service overwriteExisting:overwriteExisting error:NULL];
 }
 
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility overwriteExisting:(BOOL)overwriteExisting error:(NSError *__autoreleasing *)error {
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error {
+	STSecurityKeychainWritingOptions * const options = [[STSecurityKeychainWritingOptions alloc] init];
+	options.overwriteExisting = overwriteExisting;
+	return [self setPassword:password forUsername:username service:service withOptions:options error:error];
+}
+
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -84,22 +150,32 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return NO;
 	}
 
+	BOOL shouldUpdate = NO;
 	NSData *persistentRef = nil;
 
 	{
-		NSDictionary *query = @{
+		NSMutableDictionary * const query = @{
 			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 			(__bridge id)kSecAttrService: service,
 			(__bridge id)kSecAttrAccount: username,
 			(__bridge id)kSecReturnPersistentRef: (__bridge id)kCFBooleanTrue,
-		};
+		}.mutableCopy;
+#if defined(__IPHONE_8_0)
+		if (&kSecUseNoAuthenticationUI) {
+			query[(__bridge id)kSecUseNoAuthenticationUI] = (__bridge id)kCFBooleanTrue;
+		}
+#endif
 		CFDataRef result = NULL;
-		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+		OSStatus const err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+		if (err == errSecInteractionNotAllowed) {
+			shouldUpdate = YES;
+		}
 		if (err == errSecSuccess) {
+			shouldUpdate = YES;
 			persistentRef = (__bridge_transfer NSData *)result;
 		}
 	}
-	if (persistentRef && !overwriteExisting) {
+	if (shouldUpdate && !options.overwriteExisting) {
 		if (error) {
 			// lying about error.code but pretty close
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecDuplicateItem userInfo:nil];
@@ -107,38 +183,83 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return NO;
 	}
 
-	CFTypeRef accessible = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+	CFTypeRef const accessibilityRef = STSecurityKeychainItemAccessibilityToCFType(options.accessibility);
+	if (!accessibilityRef) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+	CFTypeRef accessControlRef = NULL;
+#if defined(__IPHONE_8_0)
+	if (&SecAccessControlCreateWithFlags) {
+		accessControlRef = SecAccessControlCreateWithFlags(NULL, accessibilityRef, (SecAccessControlCreateFlags)options.accessControl, NULL);
+		if (!accessControlRef) {
+			if (error) {
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+			}
+			return NO;
+		}
+	}
+#endif
 
-	if (persistentRef) {
-		NSDictionary *query = @{
-			(__bridge id)kSecValuePersistentRef: persistentRef,
-		};
-		NSDictionary *attributes = @{
-			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
-			(__bridge id)kSecValueData: passwordData,
-		};
-		OSStatus err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
-		if (err != errSecSuccess) {
+	NSMutableDictionary * const attributes = @{
+		(__bridge id)kSecValueData: passwordData,
+	}.mutableCopy;
+#if defined(__IPHONE_8_0)
+	if (&kSecAttrAccessControl && accessControlRef) {
+		attributes[(__bridge id)kSecAttrAccessControl] = (__bridge id)accessControlRef;
+	} else
+#endif
+	{
+		attributes[(__bridge id)kSecAttrAccessible] = (__bridge id)accessibilityRef;
+	}
+	if (accessControlRef) {
+		CFRelease(accessControlRef), accessControlRef = NULL;
+	}
+
+	if (shouldUpdate) {
+		NSMutableDictionary * const query = @{}.mutableCopy;
+		if (persistentRef) {
+			query[(__bridge id)kSecValuePersistentRef] = persistentRef;
+		} else {
+			query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+			query[(__bridge id)kSecAttrService] = service;
+			query[(__bridge id)kSecAttrAccount] = username;
+		}
+
+#if defined(__IPHONE_8_0)
+		if (&kSecUseOperationPrompt && options.prompt.length) {
+			query[(__bridge id)kSecUseOperationPrompt] = options.prompt;
+		}
+#else
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+#endif
+
+		OSStatus const err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
+		if (err == errSecSuccess) {
+			return YES;
+		}
+		if (err != errSecItemNotFound) {
 			if (error) {
 				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
 			}
 			return NO;
 		}
-	} else {
-		NSDictionary *attributes = @{
-			(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
-			(__bridge id)kSecAttrAccessible: (__bridge id)accessible,
-			(__bridge id)kSecAttrService: service,
-			(__bridge id)kSecAttrAccount: username,
-			(__bridge id)kSecValueData: passwordData,
-		};
-		OSStatus err = SecItemAdd((__bridge CFDictionaryRef)attributes, NULL);
-		if (err != errSecSuccess) {
-			if (error) {
-				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
-			}
-			return NO;
+	}
+
+	attributes[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	attributes[(__bridge id)kSecAttrService] = service;
+	attributes[(__bridge id)kSecAttrAccount] = username;
+	OSStatus const err = SecItemAdd((__bridge CFDictionaryRef)attributes, NULL);
+	if (err != errSecSuccess) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
 		}
+		return NO;
 	}
 
 	return YES;
@@ -148,10 +269,14 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 #pragma mark - Password - Retrieval
 
 + (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service {
-	return [self passwordForUsername:username service:service error:NULL];
+	return [self passwordForUsername:username service:service withOptions:nil error:NULL];
 }
 
 + (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	return [self passwordForUsername:username service:service withOptions:nil error:error];
+}
+
++ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainReadingOptions>)options error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -163,22 +288,32 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return nil;
 	}
 
-	NSDictionary *query = @{
+	NSMutableDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 		(__bridge id)kSecAttrService: service,
 		(__bridge id)kSecAttrAccount: username,
 		(__bridge id)kSecReturnData: (__bridge id)kCFBooleanTrue,
-	};
+	}.mutableCopy;
+#if defined(__IPHONE_8_0)
+	if (&kSecUseOperationPrompt && options.prompt.length) {
+		query[(__bridge id)kSecUseOperationPrompt] = options.prompt;
+	}
+#else
+	if (error) {
+		*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+	}
+	return nil;
+#endif
 
 	CFDataRef result = NULL;
-	OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+	OSStatus const err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
 	if (err != errSecSuccess) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
 		}
 		return nil;
 	}
-	NSData *passwordData = (__bridge_transfer NSData *)result;
+	NSData * const passwordData = (__bridge_transfer NSData *)result;
 	return [[NSString alloc] initWithData:passwordData encoding:NSUTF8StringEncoding];
 }
 
@@ -186,10 +321,14 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 #pragma mark - Password - Deletion
 
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service {
-	return [self deletePasswordForUsername:username service:service error:NULL];
+	return [self deletePasswordForUsername:username service:service withOptions:nil error:NULL];
 }
 
 + (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error {
+	return [self deletePasswordForUsername:username service:service withOptions:nil error:error];
+}
+
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -201,13 +340,23 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return NO;
 	}
 
-	NSDictionary *query = @{
+	NSMutableDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 		(__bridge id)kSecAttrService: service,
 		(__bridge id)kSecAttrAccount: username,
-	};
+	}.mutableCopy;
+#if defined(__IPHONE_8_0)
+	if (&kSecUseOperationPrompt && options.prompt.length) {
+		query[(__bridge id)kSecUseOperationPrompt] = options.prompt;
+	}
+#else
+	if (error) {
+		*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+	}
+	return NO;
+#endif
 
-	OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
+	OSStatus const err = SecItemDelete((__bridge CFDictionaryRef)query);
 	if (err != errSecSuccess) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
@@ -219,10 +368,14 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 }
 
 + (BOOL)deletePasswordsForService:(NSString *)service {
-	return [self deletePasswordsForService:service error:NULL];
+	return [self deletePasswordsForService:service withOptions:nil error:NULL];
 }
 
 + (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error {
+	return [self deletePasswordsForService:service withOptions:nil error:error];
+}
+
++ (BOOL)deletePasswordsForService:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError *__autoreleasing *)error {
 	if (error) {
 		*error = nil;
 	}
@@ -234,12 +387,22 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		return NO;
 	}
 
-	NSDictionary *query = @{
+	NSMutableDictionary * const query = @{
 		(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
 		(__bridge id)kSecAttrService: service,
-	};
+	}.mutableCopy;
+#if defined(__IPHONE_8_0)
+	if (&kSecUseOperationPrompt && options.prompt.length) {
+		query[(__bridge id)kSecUseOperationPrompt] = options.prompt;
+	}
+#else
+	if (error) {
+		*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+	}
+	return NO;
+#endif
 
-	OSStatus err = SecItemDelete((__bridge CFDictionaryRef)query);
+	OSStatus const err = SecItemDelete((__bridge CFDictionaryRef)query);
 	if (err != errSecSuccess) {
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
@@ -473,12 +636,18 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		}
 	}
 
+	CFTypeRef const keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+	if (!keychainItemAccessibility) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
+
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
 
 	{
-		CFTypeRef keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
-
 		NSMutableDictionary * const publicKeyAttrs = [NSMutableDictionary dictionary];
 		if (tag) {
 			publicKeyAttrs[(__bridge id)kSecAttrApplicationTag] = tag;
@@ -564,6 +733,13 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			return NO;
 		}
 	}
+	CFTypeRef const keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
+	if (!keychainItemAccessibility) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
+		}
+		return NO;
+	}
 
 	do {
 		const unsigned char *bytes = [publicKeyData bytes];
@@ -619,8 +795,6 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 	SecKeyRef publicKeyRef = NULL;
 	SecKeyRef privateKeyRef = NULL;
 	{
-		CFTypeRef keychainItemAccessibility = STSecurityKeychainItemAccessibilityToCFType(accessibility);
-
 		NSMutableDictionary * const keyAttrs = [@{
 			(__bridge id)kSecClass: (__bridge id)kSecClassKey,
 												(__bridge id)kSecAttrKeyType: (__bridge id)kSecAttrKeyTypeRSA,
