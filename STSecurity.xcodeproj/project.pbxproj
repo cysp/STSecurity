@@ -162,6 +162,7 @@
 			);
 			path = STSecurity;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		2CBC57F71615D8C000FF15E9 /* STSecurityTests */ = {
 			isa = PBXGroup;
@@ -175,6 +176,7 @@
 			);
 			path = STSecurityTests;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 /* End PBXGroup section */
 
