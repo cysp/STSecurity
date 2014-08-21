@@ -99,11 +99,16 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 #endif
 		CFDictionaryRef result = NULL;
 		OSStatus err = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
-		if (err == errSecInteractionNotAllowed) {
-			attributes = (__bridge_transfer NSDictionary *)result ?: @{};
-		}
-		if (err == errSecSuccess) {
+		if (err == errSecItemNotFound) {
+		} else if (err == errSecSuccess) {
 			attributes = (__bridge_transfer NSDictionary *)result;
+		} else if (err == errSecInteractionNotAllowed) {
+			attributes = (__bridge_transfer NSDictionary *)result ?: @{};
+		} else {
+			if (error) {
+				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+			}
+			return NO;
 		}
 	}
 
