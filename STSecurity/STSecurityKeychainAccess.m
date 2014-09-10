@@ -237,11 +237,6 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		if (&kSecUseOperationPrompt && options.prompt.length) {
 			query[(__bridge id)kSecUseOperationPrompt] = options.prompt;
 		}
-#else
-		if (error) {
-			*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:errSecParam userInfo:nil];
-		}
-		return NO;
 #endif
 
 		OSStatus const err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
