@@ -239,18 +239,31 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 		}
 #endif
 
-		OSStatus const err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
-		if (err == errSecSuccess) {
-			return YES;
-		}
-		if (err != errSecItemNotFound) {
-			if (error) {
-				*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+		{
+			OSStatus const err = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributes);
+			if (err == errSecSuccess) {
+				return YES;
 			}
-			return NO;
+		}
+
+		{
+			OSStatus const err = SecItemDelete((__bridge CFDictionaryRef)query);
+			if (err == errSecSuccess) {
+			} else if (err == errSecItemNotFound) {
+			} else {
+				if (error) {
+					*error = [NSError errorWithDomain:STSecurityKeychainAccessErrorDomain code:err userInfo:nil];
+				}
+				return NO;
+			}
 		}
 	}
 
+#if defined(__IPHONE_8_0)
+	if (&kSecUseOperationPrompt && options.prompt.length) {
+		attributes[(__bridge id)kSecUseOperationPrompt] = options.prompt;
+	}
+#endif
 	attributes[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
 	attributes[(__bridge id)kSecAttrService] = service;
 	attributes[(__bridge id)kSecAttrAccount] = username;
