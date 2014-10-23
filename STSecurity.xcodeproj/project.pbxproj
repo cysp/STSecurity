@@ -222,7 +222,7 @@
 		2CBC57D41615D8C000FF15E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Scott Talbot";
 			};
 			buildConfigurationList = 2CBC57D71615D8C000FF15E9 /* Build configuration list for PBXProject "STSecurity" */;
