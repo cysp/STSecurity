@@ -18,6 +18,8 @@
 		2C55A1781617C70700C54B8C /* STSecurityRSAEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1771617C70700C54B8C /* STSecurityRSAEncryption.m */; };
 		2C55A17E161832D400C54B8C /* STSecurityRSAEncryptionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A17D161832D400C54B8C /* STSecurityRSAEncryptionTests.m */; };
 		2C5F7EED161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */; };
+		2C9D7FB919583C4C00E662D6 /* STSecurityRandomizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D7FB819583C4C00E662D6 /* STSecurityRandomizationTests.swift */; };
+		2C9D7FBB19583C5B00E662D6 /* STSecurityKeychainAccessPasswordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D7FBA19583C5B00E662D6 /* STSecurityKeychainAccessPasswordTests.swift */; };
 		2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; };
 		2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
 		2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
@@ -26,6 +28,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2C9D7FB619583BAA00E662D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2CBC57D41615D8C000FF15E9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2CBC57DC1615D8C000FF15E9;
+			remoteInfo = STSecurity;
+		};
 		2CBC57F41615D8C000FF15E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2CBC57D41615D8C000FF15E9 /* Project object */;
@@ -67,11 +76,14 @@
 		2C55A1771617C70700C54B8C /* STSecurityRSAEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAEncryption.m; sourceTree = "<group>"; };
 		2C55A17D161832D400C54B8C /* STSecurityRSAEncryptionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAEncryptionTests.m; sourceTree = "<group>"; };
 		2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccessPasswordTests.m; sourceTree = "<group>"; };
+		2C6FF2F2194094DE0070CA3A /* STSecurityTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "STSecurityTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		2C9C1E571711A2AA003E19B9 /* Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Target.xcconfig; sourceTree = "<group>"; };
 		2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Coverage.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		2C9D7FB819583C4C00E662D6 /* STSecurityRandomizationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STSecurityRandomizationTests.swift; sourceTree = "<group>"; };
+		2C9D7FBA19583C5B00E662D6 /* STSecurityKeychainAccessPasswordTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = STSecurityKeychainAccessPasswordTests.swift; sourceTree = "<group>"; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomization.h; sourceTree = "<group>"; };
@@ -128,6 +140,7 @@
 				2CBC57DE1615D8C000FF15E9 /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		2CBC57DE1615D8C000FF15E9 /* Products */ = {
 			isa = PBXGroup;
@@ -168,10 +181,13 @@
 			isa = PBXGroup;
 			children = (
 				2CBC57F91615D8C000FF15E9 /* Info.plist */,
+				2C6FF2F2194094DE0070CA3A /* STSecurityTests-Bridging-Header.h */,
 				2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */,
+				2C9D7FB819583C4C00E662D6 /* STSecurityRandomizationTests.swift */,
 				2C1D8D03161931CB009EB62A /* STSecurityRSAKeyTests.m */,
 				2C55A17416171D3000C54B8C /* STSecurityKeychainAccessRSATests.m */,
 				2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */,
+				2C9D7FBA19583C5B00E662D6 /* STSecurityKeychainAccessPasswordTests.swift */,
 				2C55A17D161832D400C54B8C /* STSecurityRSAEncryptionTests.m */,
 			);
 			path = STSecurityTests;
@@ -210,6 +226,7 @@
 			);
 			dependencies = (
 				2CBC57F51615D8C000FF15E9 /* PBXTargetDependency */,
+				2C9D7FB719583BAA00E662D6 /* PBXTargetDependency */,
 			);
 			name = STSecurityTests;
 			productName = STSecurityTests;
@@ -224,6 +241,11 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Scott Talbot";
+				TargetAttributes = {
+					2CBC57ED1615D8C000FF15E9 = {
+						TestTargetID = 2CBC57DC1615D8C000FF15E9;
+					};
+				};
 			};
 			buildConfigurationList = 2CBC57D71615D8C000FF15E9 /* Build configuration list for PBXProject "STSecurity" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -269,7 +291,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C9D7FB919583C4C00E662D6 /* STSecurityRandomizationTests.swift in Sources */,
 				2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */,
+				2C9D7FBB19583C5B00E662D6 /* STSecurityKeychainAccessPasswordTests.swift in Sources */,
 				2C55A17516171D3000C54B8C /* STSecurityKeychainAccessRSATests.m in Sources */,
 				2C55A17E161832D400C54B8C /* STSecurityRSAEncryptionTests.m in Sources */,
 				2C1D8D04161931CB009EB62A /* STSecurityRSAKeyTests.m in Sources */,
@@ -280,6 +304,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2C9D7FB719583BAA00E662D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2CBC57DC1615D8C000FF15E9 /* STSecurity */;
+			targetProxy = 2C9D7FB619583BAA00E662D6 /* PBXContainerItemProxy */;
+		};
 		2CBC57F51615D8C000FF15E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 2CBC57DC1615D8C000FF15E9 /* STSecurity */;
@@ -312,7 +341,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = STSecurityTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "STSecurityTests/STSecurityTests-Bridging-Header.h";
 			};
 			name = Coverage;
 		};
@@ -354,7 +385,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = STSecurityTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "STSecurityTests/STSecurityTests-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -368,7 +401,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = STSecurityTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "STSecurityTests/STSecurityTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
