@@ -7,7 +7,7 @@
 
 @import XCTest;
 
-#import "STSecurityKeychainAccess.h"
+#import "STSecurity.h"
 
 
 @interface STSecurityKeychainAccessRSATests : XCTestCase

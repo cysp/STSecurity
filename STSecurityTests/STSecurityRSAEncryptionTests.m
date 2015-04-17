@@ -7,9 +7,7 @@
 
 @import XCTest;
 
-#import "STSecurityKeychainAccess.h"
-#import "STSecurityRSAEncryption.h"
-#import "STSecurityRandomization.h"
+#import "STSecurity.h"
 
 
 @interface STSecurityRSAEncryptionTests : XCTestCase

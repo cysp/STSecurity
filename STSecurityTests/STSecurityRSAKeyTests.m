@@ -7,6 +7,7 @@
 
 @import XCTest;
 
+#import "STSecurity.h"
 #import "STSecurityRSAKey+Internal.h"
 
 

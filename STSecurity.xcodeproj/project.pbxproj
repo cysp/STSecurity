@@ -11,7 +11,6 @@
 		2C1D8CC316186B6F009EB62A /* STSecurityKeychainAccess.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */; };
 		2C1D8CC416186B72009EB62A /* STSecurityRSAEncryption.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2C55A1761617C70700C54B8C /* STSecurityRSAEncryption.h */; };
 		2C1D8D04161931CB009EB62A /* STSecurityRSAKeyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1D8D03161931CB009EB62A /* STSecurityRSAKeyTests.m */; };
-		2C55A1591616907E00C54B8C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C55A1571615DAD000C54B8C /* Security.framework */; };
 		2C55A16E1616E68800C54B8C /* STSecurityKeychainAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */; };
 		2C55A1711616E6A400C54B8C /* STSecurityRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1701616E6A400C54B8C /* STSecurityRSAKey.m */; };
 		2C55A17516171D3000C54B8C /* STSecurityKeychainAccessRSATests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A17416171D3000C54B8C /* STSecurityKeychainAccessRSATests.m */; };
@@ -20,9 +19,18 @@
 		2C5F7EED161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */; };
 		2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; };
 		2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
-		2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57E01615D8C000FF15E9 /* Foundation.framework */; };
 		2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
 		2CBC57FF1615D8C000FF15E9 /* STSecurityRandomizationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */; };
+		2CDDD09E1AE0F77A005BCF0E /* STSecurity.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CDDD09D1AE0F3C1005BCF0E /* STSecurity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CDDD09F1AE0F77A005BCF0E /* STSecurityRandomization.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CDDD0A01AE0F77A005BCF0E /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
+		2CDDD0A11AE0F77A005BCF0E /* STSecurityRSAKey.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C55A16F1616E6A400C54B8C /* STSecurityRSAKey.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CDDD0A21AE0F77A005BCF0E /* STSecurityRSAKey+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C55A17216171A7900C54B8C /* STSecurityRSAKey+Internal.h */; };
+		2CDDD0A31AE0F77A005BCF0E /* STSecurityRSAKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1701616E6A400C54B8C /* STSecurityRSAKey.m */; };
+		2CDDD0A41AE0F77A005BCF0E /* STSecurityKeychainAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CDDD0A51AE0F77A005BCF0E /* STSecurityKeychainAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */; };
+		2CDDD0A61AE0F77A005BCF0E /* STSecurityRSAEncryption.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C55A1761617C70700C54B8C /* STSecurityRSAEncryption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2CDDD0A71AE0F77A005BCF0E /* STSecurityRSAEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1771617C70700C54B8C /* STSecurityRSAEncryption.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +64,6 @@
 		2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Debug.xcconfig"; sourceTree = "<group>"; };
 		2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Coverage.xcconfig"; sourceTree = "<group>"; };
 		2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Release.xcconfig"; sourceTree = "<group>"; };
-		2C55A1571615DAD000C54B8C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccess.h; sourceTree = "<group>"; };
 		2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccess.m; sourceTree = "<group>"; };
 		2C55A16F1616E6A400C54B8C /* STSecurityRSAKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityRSAKey.h; sourceTree = "<group>"; };
@@ -73,12 +80,14 @@
 		2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CBC57E01615D8C000FF15E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityRandomization.h; sourceTree = "<group>"; };
 		2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomization.m; sourceTree = "<group>"; };
 		2CBC57EE1615D8C000FF15E9 /* STSecurityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STSecurityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CBC57F91615D8C000FF15E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CBC57FE1615D8C000FF15E9 /* STSecurityRandomizationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomizationTests.m; sourceTree = "<group>"; };
+		2CDDD0821AE0F394005BCF0E /* STSecurity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STSecurity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2CDDD0851AE0F394005BCF0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CDDD09D1AE0F3C1005BCF0E /* STSecurity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurity.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,9 +102,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CBC57F31615D8C000FF15E9 /* Foundation.framework in Frameworks */,
-				2C55A1591616907E00C54B8C /* Security.framework in Frameworks */,
 				2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CDDD07E1AE0F394005BCF0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +138,6 @@
 				2C9C1E561711A292003E19B9 /* xcconfig */,
 				2CBC57E21615D8C000FF15E9 /* STSecurity */,
 				2CBC57F71615D8C000FF15E9 /* STSecurityTests */,
-				2CBC57DF1615D8C000FF15E9 /* Frameworks */,
 				2CBC57DE1615D8C000FF15E9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,22 +147,16 @@
 			children = (
 				2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */,
 				2CBC57EE1615D8C000FF15E9 /* STSecurityTests.xctest */,
+				2CDDD0821AE0F394005BCF0E /* STSecurity.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		2CBC57DF1615D8C000FF15E9 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2CBC57E01615D8C000FF15E9 /* Foundation.framework */,
-				2C55A1571615DAD000C54B8C /* Security.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2CBC57E21615D8C000FF15E9 /* STSecurity */ = {
 			isa = PBXGroup;
 			children = (
+				2CDDD0851AE0F394005BCF0E /* Info.plist */,
+				2CDDD09D1AE0F3C1005BCF0E /* STSecurity.h */,
 				2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */,
 				2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */,
 				2C55A16F1616E6A400C54B8C /* STSecurityRSAKey.h */,
@@ -179,6 +186,22 @@
 			usesTabs = 1;
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2CDDD07F1AE0F394005BCF0E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CDDD0A11AE0F77A005BCF0E /* STSecurityRSAKey.h in Headers */,
+				2CDDD0A41AE0F77A005BCF0E /* STSecurityKeychainAccess.h in Headers */,
+				2CDDD09E1AE0F77A005BCF0E /* STSecurity.h in Headers */,
+				2CDDD0A61AE0F77A005BCF0E /* STSecurityRSAEncryption.h in Headers */,
+				2CDDD09F1AE0F77A005BCF0E /* STSecurityRandomization.h in Headers */,
+				2CDDD0A21AE0F77A005BCF0E /* STSecurityRSAKey+Internal.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		2CBC57DC1615D8C000FF15E9 /* STSecurity */ = {
@@ -216,6 +239,24 @@
 			productReference = 2CBC57EE1615D8C000FF15E9 /* STSecurityTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		2CDDD0811AE0F394005BCF0E /* STSecurity.framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CDDD09B1AE0F395005BCF0E /* Build configuration list for PBXNativeTarget "STSecurity.framework" */;
+			buildPhases = (
+				2CDDD07D1AE0F394005BCF0E /* Sources */,
+				2CDDD07E1AE0F394005BCF0E /* Frameworks */,
+				2CDDD07F1AE0F394005BCF0E /* Headers */,
+				2CDDD0801AE0F394005BCF0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = STSecurity.framework;
+			productName = STSecurity.framework;
+			productReference = 2CDDD0821AE0F394005BCF0E /* STSecurity.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -224,6 +265,11 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Scott Talbot";
+				TargetAttributes = {
+					2CDDD0811AE0F394005BCF0E = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
 			};
 			buildConfigurationList = 2CBC57D71615D8C000FF15E9 /* Build configuration list for PBXProject "STSecurity" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -238,6 +284,7 @@
 			projectRoot = "";
 			targets = (
 				2CBC57DC1615D8C000FF15E9 /* STSecurity */,
+				2CDDD0811AE0F394005BCF0E /* STSecurity.framework */,
 				2CBC57ED1615D8C000FF15E9 /* STSecurityTests */,
 			);
 		};
@@ -245,6 +292,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		2CBC57EB1615D8C000FF15E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CDDD0801AE0F394005BCF0E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -274,6 +328,17 @@
 				2C55A17E161832D400C54B8C /* STSecurityRSAEncryptionTests.m in Sources */,
 				2C1D8D04161931CB009EB62A /* STSecurityRSAKeyTests.m in Sources */,
 				2C5F7EED161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CDDD07D1AE0F394005BCF0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CDDD0A71AE0F77A005BCF0E /* STSecurityRSAEncryption.m in Sources */,
+				2CDDD0A01AE0F77A005BCF0E /* STSecurityRandomization.m in Sources */,
+				2CDDD0A51AE0F77A005BCF0E /* STSecurityKeychainAccess.m in Sources */,
+				2CDDD0A31AE0F77A005BCF0E /* STSecurityRSAKey.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +437,75 @@
 			};
 			name = Release;
 		};
+		2CDDD0951AE0F395005BCF0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = STSecurity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = STSecurity;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2CDDD0961AE0F395005BCF0E /* Coverage */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = STSecurity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = STSecurity;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Coverage;
+		};
+		2CDDD0971AE0F395005BCF0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = STSecurity/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = STSecurity;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -404,6 +538,15 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		2CDDD09B1AE0F395005BCF0E /* Build configuration list for PBXNativeTarget "STSecurity.framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CDDD0951AE0F395005BCF0E /* Debug */,
+				2CDDD0961AE0F395005BCF0E /* Coverage */,
+				2CDDD0971AE0F395005BCF0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

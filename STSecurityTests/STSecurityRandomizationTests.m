@@ -7,7 +7,7 @@
 
 @import XCTest;
 
-#import "STSecurityRandomization.h"
+#import "STSecurity.h"
 
 
 @interface STSecurityRandomizationTests : XCTestCase

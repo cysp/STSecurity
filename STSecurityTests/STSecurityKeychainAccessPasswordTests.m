@@ -7,7 +7,7 @@
 
 @import XCTest;
 
-#import "STSecurityKeychainAccess.h"
+#import "STSecurity.h"
 
 
 static NSString * const service = @"STSecurityTest";
