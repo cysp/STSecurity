@@ -14,7 +14,7 @@
 #import "STSecurityRSAKey.h"
 
 
-NS_ENUM(NSUInteger, STSecurityRSAPadding) {
+typedef NS_ENUM(NSUInteger, STSecurityRSAPadding) {
 	STSecurityRSAPaddingNone = 0,
 	STSecurityRSAPaddingPKCS1,
 	STSecurityRSAPaddingOAEP,
@@ -26,10 +26,10 @@ extern NSString * const STSecurityEncryptionErrorDomain;
 
 @interface STSecurityRSAEncryption : NSObject
 
-+ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(enum STSecurityRSAPadding)padding;
-+ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(enum STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
++ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(STSecurityRSAPadding)padding;
++ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
 
-+ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(enum STSecurityRSAPadding)padding;
-+ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(enum STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
++ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(STSecurityRSAPadding)padding;
++ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
 
 @end

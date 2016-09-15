@@ -279,8 +279,11 @@
 	};
 	unsigned int const prv_bytes_len = 1193;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 	NSData * const publicKeyData = [NSData dataWithBytesNoCopy:(void *)pub_bytes length:pub_bytes_len freeWhenDone:NO];
 	NSData * const privateKeyData = [NSData dataWithBytesNoCopy:(void *)prv_bytes length:prv_bytes_len freeWhenDone:NO];
+#pragma clang diagnostic pop
 
 	NSString * const keyTag = @"STSecurityTest.testInsertion";
 	STSecurityRSAPublicKey *publicKey = nil;

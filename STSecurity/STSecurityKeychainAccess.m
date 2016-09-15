@@ -470,7 +470,10 @@ static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecur
 			return nil;
 		}
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 		keyRef = (SecKeyRef)result;
+#pragma clang diagnostic pop
 	}
 
 	STSecurityRSAPrivateKey *key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:keyRef];

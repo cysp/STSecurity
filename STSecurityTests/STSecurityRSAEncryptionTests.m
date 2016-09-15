@@ -228,8 +228,11 @@
 	};
 	unsigned int const prv_bytes_len = 1193;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 	NSData * const publicKeyData = [NSData dataWithBytesNoCopy:(void *)pub_bytes length:pub_bytes_len freeWhenDone:NO];
 	NSData * const privateKeyData = [NSData dataWithBytesNoCopy:(void *)prv_bytes length:prv_bytes_len freeWhenDone:NO];
+#pragma clang diagnostic pop
 
 	unsigned char const plaintext_bytes[] = {
 		0x70, 0x6c, 0x61, 0x69, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x0a
@@ -256,8 +259,11 @@
 	};
 	unsigned int const ciphertext_bytes_len = 256;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 	NSData * const plaintextDataExpected = [NSData dataWithBytesNoCopy:(void *)plaintext_bytes length:plaintext_bytes_len freeWhenDone:NO];
 	NSData * const ciphertextData = [NSData dataWithBytesNoCopy:(void *)ciphertext_bytes length:ciphertext_bytes_len freeWhenDone:NO];
+#pragma clang diagnostic pop
 
 	[STSecurityKeychainAccess deleteRSAKeysForTag:keyTag error:NULL];
 

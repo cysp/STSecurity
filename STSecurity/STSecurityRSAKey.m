@@ -37,7 +37,10 @@
 		return nil;
 	}
 	if ((self = [super init])) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 		_keyRef = (SecKeyRef)CFRetain(keyRef);
+#pragma clang diagnostic pop
 		_keyData = [keyData copy];
 	}
 	return self;
@@ -79,7 +82,10 @@
 		return nil;
 	}
 	if ((self = [super init])) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
 		_keyRef = (SecKeyRef)CFRetain(keyRef);
+#pragma clang diagnostic pop
 	}
 	return self;
 }
