@@ -13,10 +13,9 @@
 # error "STSecurity must be compiled with ARC enabled"
 #endif
 
+@import Security;
 
 #import "STSecurityRSAKey.h"
-
-#import <Security/Security.h>
 
 
 @implementation STSecurityRSAPublicKey {

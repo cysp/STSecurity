@@ -16,7 +16,7 @@
 
 #import "STSecurityRandomization.h"
 
-#import <Security/Security.h>
+@import Security;
 
 
 NSString * const STSecurityRandomizationErrorDomain = @"STSecurityRandomizationError";

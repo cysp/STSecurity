@@ -13,10 +13,9 @@
 # error "STSecurity must be compiled with ARC enabled"
 #endif
 
+@import Security;
 
 #import "STSecurityKeychainAccess.h"
-
-#import <Security/Security.h>
 
 #import "STSecurityRSAKey.h"
 #import "STSecurityRSAKey+Internal.h"
