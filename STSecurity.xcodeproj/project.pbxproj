@@ -62,7 +62,6 @@
 /* Begin PBXFileReference section */
 		2C1D8D03161931CB009EB62A /* STSecurityRSAKeyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAKeyTests.m; sourceTree = "<group>"; };
 		2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Debug.xcconfig"; sourceTree = "<group>"; };
-		2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Coverage.xcconfig"; sourceTree = "<group>"; };
 		2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Release.xcconfig"; sourceTree = "<group>"; };
 		2C55A16C1616E68800C54B8C /* STSecurityKeychainAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccess.h; sourceTree = "<group>"; };
 		2C55A16D1616E68800C54B8C /* STSecurityKeychainAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccess.m; sourceTree = "<group>"; };
@@ -76,7 +75,6 @@
 		2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSecurityKeychainAccessPasswordTests.m; sourceTree = "<group>"; };
 		2C9C1E571711A2AA003E19B9 /* Target.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Target.xcconfig; sourceTree = "<group>"; };
 		2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
-		2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Coverage.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
 		2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSTSecurity.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,11 +119,9 @@
 			children = (
 				2C9C1E5E1711A3CA003E19B9 /* Project.xcconfig */,
 				2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */,
-				2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */,
 				2C9C1E5A1711A2F0003E19B9 /* Project-Release.xcconfig */,
 				2C9C1E571711A2AA003E19B9 /* Target.xcconfig */,
 				2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */,
-				2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */,
 				2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */,
 			);
 			name = xcconfig;
@@ -353,35 +349,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		2C9C1E5B1711A2FF003E19B9 /* Coverage */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C9C1E591711A2E6003E19B9 /* Project-Coverage.xcconfig */;
-			buildSettings = {
-			};
-			name = Coverage;
-		};
-		2C9C1E5C1711A2FF003E19B9 /* Coverage */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
-			buildSettings = {
-			};
-			name = Coverage;
-		};
-		2C9C1E5D1711A2FF003E19B9 /* Coverage */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = STSecurityTests/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = STSecurityTests;
-			};
-			name = Coverage;
-		};
 		2CBC58001615D8C000FF15E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C9C1E581711A2CC003E19B9 /* Project-Debug.xcconfig */;
@@ -462,30 +429,6 @@
 			};
 			name = Debug;
 		};
-		2CDDD0961AE0F395005BCF0E /* Coverage */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = STSecurity/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = STSecurity;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Coverage;
-		};
 		2CDDD0971AE0F395005BCF0E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */;
@@ -517,7 +460,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58001615D8C000FF15E9 /* Debug */,
-				2C9C1E5B1711A2FF003E19B9 /* Coverage */,
 				2CBC58011615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -527,7 +469,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58031615D8C000FF15E9 /* Debug */,
-				2C9C1E5C1711A2FF003E19B9 /* Coverage */,
 				2CBC58041615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -537,7 +478,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CBC58061615D8C000FF15E9 /* Debug */,
-				2C9C1E5D1711A2FF003E19B9 /* Coverage */,
 				2CBC58071615D8C000FF15E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -547,7 +487,6 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CDDD0951AE0F395005BCF0E /* Debug */,
-				2CDDD0961AE0F395005BCF0E /* Coverage */,
 				2CDDD0971AE0F395005BCF0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
