@@ -1,11 +1,13 @@
+osx_image: xcode8
 language: objective-c
+xcode_project: STSecurity.xcodeproj
+xcode_sdk: iphonesimulator
+xcode_scheme: STSecurity
+env:
+    - TRAVIS_XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=latest"
 branches:
     only:
         - master
-before_install:
-    - bundle install --path .bundle
 before_script:
-    - bundle exec rake -s analyze:${CI_PLATFORM}
-script: bundle exec rake -s test:${CI_PLATFORM}
-env:
-    - CI_PLATFORM=ios
+    - gem install xcpretty
+script: xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${TRAVIS_XCODE_DESTINATION}" | xcpretty
