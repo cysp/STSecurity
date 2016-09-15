@@ -24,16 +24,12 @@ typedef NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 	STSecurityKeychainItemAccessibleAfterFirstUnlockThisDeviceOnly,
 	STSecurityKeychainItemAccessibleAlways,
 	STSecurityKeychainItemAccessibleAlwaysThisDeviceOnly,
-#if defined(__IPHONE_8_0)
 	STSecurityKeychainItemAccessibleWhenPasscodeSetThisDeviceOnly,
-#endif
 };
 
-#if defined(__IPHONE_8_0)
 typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
 	STSecurityKeychainItemAccessControlRequireUserPresence = 0b1,
 };
-#endif
 
 @protocol STSecurityKeychainReadingOptions <NSObject>
 @property (nonatomic,copy,readonly) NSString *prompt;
@@ -45,17 +41,13 @@ typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
 @protocol STSecurityKeychainWritingOptions <NSObject>
 @property (nonatomic,assign,readonly) BOOL overwriteExisting;
 @property (nonatomic,assign,readonly) STSecurityKeychainItemAccessibility accessibility;
-#if defined(__IPHONE_8_0)
 @property (nonatomic,assign,readonly) NSInteger accessControl;
-#endif
 @property (nonatomic,copy,readonly) NSString *prompt;
 @end
 @interface STSecurityKeychainWritingOptions : NSObject<STSecurityKeychainWritingOptions>
 @property (nonatomic,assign) BOOL overwriteExisting;
 @property (nonatomic,assign) STSecurityKeychainItemAccessibility accessibility;
-#if defined(__IPHONE_8_0)
 @property (nonatomic,assign) NSInteger accessControl;
-#endif
 @property (nonatomic,copy) NSString *prompt;
 @end
 

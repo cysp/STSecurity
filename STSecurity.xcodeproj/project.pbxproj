@@ -263,7 +263,7 @@
 		2CBC57D41615D8C000FF15E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Scott Talbot";
 				TargetAttributes = {
 					2CDDD0811AE0F394005BCF0E = {
@@ -377,6 +377,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = STSecurityTests;
 			};
 			name = Coverage;
@@ -419,6 +420,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = STSecurityTests;
 			};
 			name = Debug;
@@ -433,6 +435,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = STSecurityTests;
 			};
 			name = Release;
@@ -441,7 +444,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C2294C11711A497004E0D3E /* Target-Debug.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -453,6 +456,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = STSecurity;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -464,7 +468,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C2294C21711A4A0004E0D3E /* Target-Coverage.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -476,6 +480,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = STSecurity;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -487,7 +492,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C2294C31711A4A8004E0D3E /* Target-Release.xcconfig */;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -499,6 +504,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = STSecurity;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -547,6 +553,7 @@
 				2CDDD0971AE0F395005BCF0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
