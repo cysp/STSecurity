@@ -269,7 +269,7 @@
 		2CBC57D41615D8C000FF15E9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Scott Talbot";
 				TargetAttributes = {
 					2CDDD0811AE0F394005BCF0E = {
