@@ -19,7 +19,7 @@
 - (void)testPublicKeyInstantiation {
 	{
 		STSecurityRSAPublicKey *key;
-#if NS_BLOCK_ASSERTIONS
+#if defined(NS_BLOCK_ASSERTIONS)
 		key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:NULL keyData:nil];
 #else
 		XCTAssertThrows(key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:NULL keyData:nil], @"Creating public key with neither keyRef nor data didn't throw");
@@ -31,7 +31,7 @@
 - (void)testPrivateKeyInstantiation {
 	{
 		STSecurityRSAPrivateKey *key;
-#if NS_BLOCK_ASSERTIONS
+#if defined(NS_BLOCK_ASSERTIONS)
 		key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:NULL];
 #else
 		XCTAssertThrows(key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:NULL], @"Creating private key with NULL keyRef");
