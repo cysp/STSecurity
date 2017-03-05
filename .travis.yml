@@ -4,7 +4,7 @@ xcode_project: STSecurity.xcodeproj
 xcode_sdk: iphonesimulator
 xcode_scheme: STSecurity
 env:
-    - TRAVIS_XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=latest"
+    - TRAVIS_XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=9.3"
 branches:
     only:
         - master
