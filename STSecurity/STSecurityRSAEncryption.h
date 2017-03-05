@@ -11,7 +11,7 @@
 
 @import Foundation;
 
-#import "STSecurityRSAKey.h"
+#import <STSecurity/STSecurityRSAKey.h>
 
 
 typedef NS_ENUM(NSUInteger, STSecurityRSAPadding) {

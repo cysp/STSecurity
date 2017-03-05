@@ -11,7 +11,7 @@
 
 @import Foundation;
 
-#import "STSecurityRSAKey.h"
+#import <STSecurity/STSecurity.h>
 
 
 extern NSString * const STSecurityKeychainAccessErrorDomain;

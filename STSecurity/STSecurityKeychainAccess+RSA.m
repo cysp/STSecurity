@@ -9,10 +9,9 @@
 //  Copyright © 2016 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityKeychainAccess+RSA.h"
-#import "STSecurityKeychainAccess+Internal.h"
+#import <STSecurity/STSecurity.h>
 
-#import "STSecurityRSAKey.h"
+#import "STSecurityKeychainAccess+Internal.h"
 #import "STSecurityRSAKey+Internal.h"
 
 

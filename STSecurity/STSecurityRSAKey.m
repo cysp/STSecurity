@@ -15,7 +15,7 @@
 
 @import Security;
 
-#import "STSecurityRSAKey.h"
+#import <STSecurity/STSecurity.h>
 
 
 @implementation STSecurityRSAPublicKey {

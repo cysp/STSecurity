@@ -15,7 +15,8 @@
 
 @import Security;
 
-#import "STSecurityKeychainAccess.h"
+#import <STSecurity/STSecurity.h>
+
 #import "STSecurityKeychainAccess+Internal.h"
 
 

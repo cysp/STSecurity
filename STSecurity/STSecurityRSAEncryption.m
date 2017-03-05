@@ -14,7 +14,7 @@
 #endif
 
 
-#import "STSecurityRSAEncryption.h"
+#import <STSecurity/STSecurity.h>
 
 #import "STSecurityRSAKey+Internal.h"
 

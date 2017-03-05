@@ -9,7 +9,7 @@
 //  Copyright (c) 2012 Scott Talbot. All rights reserved.
 //
 
-#import "STSecurityRSAKey.h"
+#import <STSecurity/STSecurityRSAKey.h>
 
 
 @interface STSecurityRSAPublicKey (Internal)

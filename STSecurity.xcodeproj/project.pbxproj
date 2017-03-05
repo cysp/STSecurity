@@ -20,6 +20,7 @@
 		2C55A1781617C70700C54B8C /* STSecurityRSAEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A1771617C70700C54B8C /* STSecurityRSAEncryption.m */; };
 		2C55A17E161832D400C54B8C /* STSecurityRSAEncryptionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C55A17D161832D400C54B8C /* STSecurityRSAEncryptionTests.m */; };
 		2C5F7EED161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5F7EEC161B03D200001538 /* STSecurityKeychainAccessPasswordTests.m */; };
+		2C62F2851E6BCA1600CE0D6B /* STSecurityKeychainAccess+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C2C12691D8A9D380039643D /* STSecurityKeychainAccess+Internal.h */; };
 		2CBC57E61615D8C000FF15E9 /* STSecurityRandomization.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2CBC57E51615D8C000FF15E9 /* STSecurityRandomization.h */; };
 		2CBC57E81615D8C000FF15E9 /* STSecurityRandomization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBC57E71615D8C000FF15E9 /* STSecurityRandomization.m */; };
 		2CBC57F61615D8C000FF15E9 /* libSTSecurity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CBC57DD1615D8C000FF15E9 /* libSTSecurity.a */; };
@@ -203,6 +204,7 @@
 				2CDDD0A61AE0F77A005BCF0E /* STSecurityRSAEncryption.h in Headers */,
 				2CDDD09F1AE0F77A005BCF0E /* STSecurityRandomization.h in Headers */,
 				2C2C12661D8A9C740039643D /* STSecurityKeychainAccess+RSA.h in Headers */,
+				2C62F2851E6BCA1600CE0D6B /* STSecurityKeychainAccess+Internal.h in Headers */,
 				2CDDD0A21AE0F77A005BCF0E /* STSecurityRSAKey+Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

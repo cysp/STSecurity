@@ -13,6 +13,6 @@ FOUNDATION_EXPORT const unsigned char STSecurityVersionString[];
 
 #import <STSecurity/STSecurityRandomization.h>
 #import <STSecurity/STSecurityKeychainAccess.h>
-#import <STSecurity/STSecurityKeychainAccess+RSA.h>
 #import <STSecurity/STSecurityRSAKey.h>
+#import <STSecurity/STSecurityKeychainAccess+RSA.h>
 #import <STSecurity/STSecurityRSAEncryption.h>

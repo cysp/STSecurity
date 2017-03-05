@@ -13,10 +13,9 @@
 # error "STSecurity must be compiled with ARC enabled"
 #endif
 
-
-#import "STSecurityRandomization.h"
-
 @import Security;
+
+#import <STSecurity/STSecurity.h>
 
 
 NSString * const STSecurityRandomizationErrorDomain = @"STSecurityRandomizationError";
