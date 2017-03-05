@@ -63,7 +63,7 @@
 	}
 }
 
-- (void)testGenerationSize384 { [self _st_testGenerationOfSize:384]; }
+//- (void)testGenerationSize384 { [self _st_testGenerationOfSize:384]; }
 - (void)testGenerationSize512 { [self _st_testGenerationOfSize:512]; }
 - (void)testGenerationSize768 { [self _st_testGenerationOfSize:768]; }
 - (void)testGenerationSize1024 { [self _st_testGenerationOfSize:1024]; }
