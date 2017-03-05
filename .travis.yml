@@ -10,4 +10,4 @@ branches:
         - master
 before_script:
     - gem install xcpretty
-script: xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${TRAVIS_XCODE_DESTINATION}" | xcpretty
+script: set -o pipefail && xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${TRAVIS_XCODE_DESTINATION}" | xcpretty
