@@ -44,4 +44,6 @@ CLANG_WARN_INFINITE_RECURSION = YES
 CLANG_WARN_SUSPICIOUS_MOVE = YES
 GCC_NO_COMMON_BLOCKS = YES
 
+FRAMEWORK_SEARCH_PATHS = $(SRCROOT)/..
+
 WARNING_CFLAGS = -Weverything -Wno-auto-import -Wno-direct-ivar-access -Wno-documentation-unknown-command -Wno-gnu -Wno-gnu-conditional-omitted-operand -Wno-partial-availability -Wno-reserved-id-macro -Wno-system-headers
