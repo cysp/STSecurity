@@ -47,7 +47,8 @@
 
 - (void)dealloc {
 	if (_keyRef) {
-		CFRelease(_keyRef), _keyRef = nil;
+		CFRelease(_keyRef);
+		_keyRef = nil;
 	}
 }
 
@@ -91,7 +92,8 @@
 
 - (void)dealloc {
 	if (_keyRef) {
-		CFRelease(_keyRef), _keyRef = nil;
+		CFRelease(_keyRef);
+		_keyRef = nil;
 	}
 }
 

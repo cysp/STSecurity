@@ -63,7 +63,8 @@ static inline SecPadding STSecurityRSAPaddingToSecPadding(enum STSecurityRSAPadd
 
 	OSStatus err = SecKeyEncrypt(key.keyRef, STSecurityRSAPaddingToSecPadding(padding), plainTextBytes, plainTextLen, cipherText, &cipherTextLen);
 	if (err != errSecSuccess) {
-		free(cipherText), cipherText = nil;
+		free(cipherText);
+		cipherText = nil;
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:err userInfo:nil];
 		}
@@ -100,7 +101,8 @@ static inline SecPadding STSecurityRSAPaddingToSecPadding(enum STSecurityRSAPadd
 
 	OSStatus err = SecKeyDecrypt(key.keyRef, STSecurityRSAPaddingToSecPadding(padding), cipherTextBytes, cipherTextLen, plainText, &plainTextLen);
 	if (err != errSecSuccess) {
-		free(plainText), plainText = NULL;
+		free(plainText);
+		plainText = NULL;
 		if (error) {
 			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:err userInfo:nil];
 		}

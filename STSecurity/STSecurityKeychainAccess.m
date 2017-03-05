@@ -176,7 +176,8 @@ NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError
 	}
 
 	if (accessControlRef) {
-		CFRelease(accessControlRef), accessControlRef = NULL;
+		CFRelease(accessControlRef);
+		accessControlRef = NULL;
 	}
 
 	if (shouldUpdate) {

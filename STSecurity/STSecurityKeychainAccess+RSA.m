@@ -66,7 +66,8 @@
 	STSecurityRSAPublicKey *key = [[STSecurityRSAPublicKey alloc] initWithKeyRef:keyRef keyData:keyData];
 
 	if (keyRef) {
-		CFRelease(keyRef), keyRef = NULL;
+		CFRelease(keyRef);
+		keyRef = NULL;
 	}
 
 	return key;
@@ -115,7 +116,8 @@
 	STSecurityRSAPrivateKey *key = [[STSecurityRSAPrivateKey alloc] initWithKeyRef:keyRef];
 
 	if (keyRef) {
-		CFRelease(keyRef), keyRef = NULL;
+		CFRelease(keyRef);
+		keyRef = NULL;
 	}
 
 	return key;
@@ -309,10 +311,12 @@
 	}
 
 	if (publicKeyRef) {
-		CFRelease(publicKeyRef), publicKeyRef = NULL;
+		CFRelease(publicKeyRef);
+		publicKeyRef = NULL;
 	}
 	if (privateKeyRef) {
-		CFRelease(privateKeyRef), privateKeyRef = NULL;
+		CFRelease(privateKeyRef);
+		privateKeyRef = NULL;
 	}
 
 	return YES;
@@ -463,10 +467,12 @@
 	}
 	
 	if (publicKeyRef) {
-		CFRelease(publicKeyRef), publicKeyRef = NULL;
+		CFRelease(publicKeyRef);
+		publicKeyRef = NULL;
 	}
 	if (privateKeyRef) {
-		CFRelease(privateKeyRef), privateKeyRef = NULL;
+		CFRelease(privateKeyRef);
+		privateKeyRef = NULL;
 	}
 	
 	return YES;
