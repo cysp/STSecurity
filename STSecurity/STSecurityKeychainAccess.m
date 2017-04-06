@@ -24,10 +24,16 @@ NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError
 
 
 @implementation STSecurityKeychainReadingOptions
+- (instancetype)init {
+	return [super init];
+}
 @synthesize prompt = _prompt;
 @end
 
 @implementation STSecurityKeychainWritingOptions
+- (instancetype)init {
+	return [super init];
+}
 @synthesize overwriteExisting = _overwriteExisting;
 @synthesize accessibility = _accessibility;
 @synthesize accessControl = _accessControl;
@@ -174,6 +180,8 @@ NSString * const STSecurityKeychainAccessErrorDomain = @"STSecurityKeychainError
 	}.mutableCopy;
 	if (accessControlRef) {
 		attributes[(__bridge id)kSecAttrAccessControl] = (__bridge id)accessControlRef;
+	} else {
+		attributes[(__bridge id)kSecAttrAccessible] = (__bridge id)accessibilityRef;
 	}
 
 	if (accessControlRef) {

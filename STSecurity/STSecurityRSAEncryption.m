@@ -52,6 +52,9 @@ static inline SecPadding STSecurityRSAPaddingToSecPadding(enum STSecurityRSAPadd
 		return nil;
 	}
 	if (!data) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:0 userInfo:nil];
+		}
 		return nil;
 	}
 
@@ -90,6 +93,9 @@ static inline SecPadding STSecurityRSAPaddingToSecPadding(enum STSecurityRSAPadd
 		return nil;
 	}
 	if (!data) {
+		if (error) {
+			*error = [NSError errorWithDomain:STSecurityEncryptionErrorDomain code:0 userInfo:nil];
+		}
 		return nil;
 	}
 

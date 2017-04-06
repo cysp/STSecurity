@@ -11,25 +11,29 @@
 
 #import <STSecurity/STSecurity.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @interface STSecurityKeychainAccess (RSA)
 
-+ (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag;
-+ (STSecurityRSAPublicKey *)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
-+ (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag;
-+ (STSecurityRSAPrivateKey *)fetchRSAPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
++ (STSecurityRSAPublicKey * __nullable)fetchRSAPublicKeyForTag:(NSString *)tag NS_SWIFT_UNAVAILABLE("");
++ (STSecurityRSAPublicKey * __nullable)fetchRSAPublicKeyForTag:(NSString *)tag error:(NSError * __autoreleasing __nullable * __nullable)error;
++ (STSecurityRSAPrivateKey * __nullable)fetchRSAPrivateKeyForTag:(NSString *)tag NS_SWIFT_UNAVAILABLE("");
++ (STSecurityRSAPrivateKey * __nullable)fetchRSAPrivateKeyForTag:(NSString *)tag error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-+ (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key;
-+ (NSData *)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key error:(NSError * __autoreleasing *)error;
++ (NSData * __nullable)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key NS_SWIFT_UNAVAILABLE("");
++ (NSData * __nullable)fetchKeyDataForRSAPrivateKey:(STSecurityRSAPrivateKey *)key error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-+ (BOOL)deleteRSAKeysForTag:(NSString *)tag;
-+ (BOOL)deleteRSAKeysForTag:(NSString *)tag error:(NSError * __autoreleasing *)error;
++ (BOOL)deleteRSAKeysForTag:(NSString *)tag NS_SWIFT_UNAVAILABLE("");
++ (BOOL)deleteRSAKeysForTag:(NSString *)tag error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 + (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag;
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey;
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error;
-+ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error;
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString * __nullable)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing __nonnull * __nullable)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing __nonnull * __nullable)privateKey;
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithTag:(NSString * __nullable)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing __nonnull * __nullable)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing __nonnull * __nullable)privateKey error:(NSError * __autoreleasing __nullable * __nullable)error;
++ (BOOL)generateRSAKeypairOfSize:(NSUInteger)size insertedIntoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString * __nullable)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing __nonnull * __nullable)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing __nonnull * __nullable)privateKey error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-+ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString *)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing *)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing *)privateKey error:(NSError * __autoreleasing *)error;
++ (BOOL)insertRSAKeypairWithPublicKeyData:(NSData *)publicKeyData privateKeyData:(NSData *)privateKeyData intoKeychainWithAccessibility:(enum STSecurityKeychainItemAccessibility)accessibility tag:(NSString * __nullable)tag publicKey:(STSecurityRSAPublicKey * __autoreleasing __nonnull * __nullable)publicKey privateKey:(STSecurityRSAPrivateKey * __autoreleasing __nonnull * __nullable)privateKey error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

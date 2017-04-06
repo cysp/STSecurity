@@ -13,6 +13,8 @@
 
 #import <STSecurity/STSecurity.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 extern NSString * const STSecurityKeychainAccessErrorDomain;
 
@@ -27,28 +29,46 @@ typedef NS_ENUM(NSUInteger, STSecurityKeychainItemAccessibility) {
 	STSecurityKeychainItemAccessibleWhenPasscodeSetThisDeviceOnly,
 };
 
-typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
-	STSecurityKeychainItemAccessControlRequireUserPresence = 0b1,
+typedef NS_OPTIONS(NSUInteger, STSecurityKeychainItemAccessControl) {
+	STSecurityKeychainItemAccessControlNone = 0,
+	/// User presence policy using Touch ID or Passcode. Touch ID does not have to be available or enrolled. Item is still accessible by Touch ID even if fingers are added or removed.
+	STSecurityKeychainItemAccessControlRequireUserPresence = 1 << 0,
+	/// Constraint: Touch ID (any finger). Touch ID must be available and at least one finger must be enrolled. Item is still accessible by Touch ID even if fingers are added or removed.
+	STSecurityKeychainItemAccessControlTouchIDAny = 1 << 1,
+	/// Constraint: Touch ID from the set of currently enrolled fingers. Touch ID must be available and at least one finger must be enrolled. When fingers are added or removed, the item is invalidated.
+	STSecurityKeychainItemAccessControlTouchIDCurrentSet = 1 << 3,
+	/// Constraint: Device passcode
+	STSecurityKeychainItemAccessControlDevicePasscode = 1 << 4,
+	/// Constraint logic operation: when using more than one constraint, at least one of them must be satisfied.
+	STSecurityKeychainItemAccessControlOr = 1 << 14,
+	/// Constraint logic operation: when using more than one constraint, all must be satisfied.
+	STSecurityKeychainItemAccessControlAnd = 1 << 15,
+	/// Create access control for private key operations (i.e. sign operation)
+	STSecurityKeychainItemAccessControlPrivateKeyUsage = 1 << 30,
+	/// Security: Application provided password for data encryption key generation. This is not a constraint but additional item encryption mechanism.
+	STSecurityKeychainItemAccessControlApplicationPassword = 0x80000000,
 };
 
 @protocol STSecurityKeychainReadingOptions <NSObject>
-@property (nonatomic,copy,readonly) NSString *prompt;
+@property (nonatomic,copy,readonly,nullable) NSString *prompt;
 @end
 @interface STSecurityKeychainReadingOptions : NSObject<STSecurityKeychainReadingOptions>
-@property (nonatomic,copy) NSString *prompt;
+- (instancetype)init NS_REFINED_FOR_SWIFT;
+@property (nonatomic,copy,nullable) NSString *prompt;
 @end
 
 @protocol STSecurityKeychainWritingOptions <NSObject>
 @property (nonatomic,assign,readonly) BOOL overwriteExisting;
 @property (nonatomic,assign,readonly) STSecurityKeychainItemAccessibility accessibility;
-@property (nonatomic,assign,readonly) NSInteger accessControl;
-@property (nonatomic,copy,readonly) NSString *prompt;
+@property (nonatomic,assign,readonly) STSecurityKeychainItemAccessControl accessControl;
+@property (nonatomic,copy,readonly,nullable) NSString *prompt;
 @end
 @interface STSecurityKeychainWritingOptions : NSObject<STSecurityKeychainWritingOptions>
+- (instancetype)init NS_REFINED_FOR_SWIFT;
 @property (nonatomic,assign) BOOL overwriteExisting;
 @property (nonatomic,assign) STSecurityKeychainItemAccessibility accessibility;
-@property (nonatomic,assign) NSInteger accessControl;
-@property (nonatomic,copy) NSString *prompt;
+@property (nonatomic,assign) STSecurityKeychainItemAccessControl accessControl;
+@property (nonatomic,copy,nullable) NSString *prompt;
 @end
 
 
@@ -56,25 +76,28 @@ typedef NS_OPTIONS(NSInteger, STSecurityKeychainItemAccessControl) {
 
 #pragma mark - Password
 
-+ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service;
-+ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service NS_SWIFT_UNAVAILABLE("");
++ (BOOL)containsPasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_NOTHROW NS_REFINED_FOR_SWIFT;
 
-+ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service;
-+ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
-+ (NSString *)passwordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainReadingOptions>)options error:(NSError * __autoreleasing *)error;
++ (NSString * __nullable)passwordForUsername:(NSString *)username service:(NSString *)service NS_SWIFT_UNAVAILABLE("");
++ (NSString * __nullable)passwordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_UNAVAILABLE("");
++ (NSString * __nullable)passwordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainReadingOptions> __nullable)options error:(NSError * __autoreleasing __nullable * __nullable)error NS_REFINED_FOR_SWIFT;
 
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service;
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting;
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing *)error;
-+ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service NS_SWIFT_UNAVAILABLE("");
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_UNAVAILABLE("");
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting NS_SWIFT_UNAVAILABLE("");
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service overwriteExisting:(BOOL)overwriteExisting error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_UNAVAILABLE("");
++ (BOOL)setPassword:(NSString *)password forUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions> __nullable)options error:(NSError * __autoreleasing __nullable * __nullable)error NS_REFINED_FOR_SWIFT;
 
-+ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service;
-+ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing *)error;
-+ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service NS_SWIFT_UNAVAILABLE("");
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_UNAVAILABLE("");
++ (BOOL)deletePasswordForUsername:(NSString *)username service:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions> __nullable)options error:(NSError * __autoreleasing __nullable * __nullable)error NS_REFINED_FOR_SWIFT;
 
-+ (BOOL)deletePasswordsForService:(NSString *)service;
-+ (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing *)error;
-+ (BOOL)deletePasswordsForService:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions>)options error:(NSError * __autoreleasing *)error;
++ (BOOL)deletePasswordsForService:(NSString *)service NS_SWIFT_UNAVAILABLE("");
++ (BOOL)deletePasswordsForService:(NSString *)service error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_UNAVAILABLE("");
++ (BOOL)deletePasswordsForService:(NSString *)service withOptions:(id<STSecurityKeychainWritingOptions> __nullable)options error:(NSError * __autoreleasing __nullable * __nullable)error NS_REFINED_FOR_SWIFT;
 
 @end
+
+
+NS_ASSUME_NONNULL_END

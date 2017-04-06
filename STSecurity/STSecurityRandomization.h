@@ -11,13 +11,17 @@
 
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 extern NSString * const STSecurityRandomizationErrorDomain;
 
 
 @interface STSecurityRandomization : NSObject
 
-+ (NSData *)dataWithRandomBytesOfLength:(NSUInteger)count;
-+ (NSData *)dataWithRandomBytesOfLength:(NSUInteger)count error:(NSError * __autoreleasing *)error;
++ (NSData * __nullable)dataWithRandomBytesOfLength:(NSUInteger)count NS_SWIFT_UNAVAILABLE("");
++ (NSData * __nullable)dataWithRandomBytesOfLength:(NSUInteger)count error:(NSError * __autoreleasing __nullable * __nullable)error NS_SWIFT_NAME(dataWithRandomBytesOfLength(_:));
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -13,6 +13,8 @@
 
 #import <STSecurity/STSecurityRSAKey.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 typedef NS_ENUM(NSUInteger, STSecurityRSAPadding) {
 	STSecurityRSAPaddingNone = 0,
@@ -26,10 +28,12 @@ extern NSString * const STSecurityEncryptionErrorDomain;
 
 @interface STSecurityRSAEncryption : NSObject
 
-+ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(STSecurityRSAPadding)padding;
-+ (NSData *)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
++ (NSData * __nullable)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(enum STSecurityRSAPadding)padding NS_SWIFT_UNAVAILABLE("");
++ (NSData * __nullable)dataByEncryptingData:(NSData *)data withPublicKey:(STSecurityRSAPublicKey *)key padding:(enum STSecurityRSAPadding)padding error:(NSError * __autoreleasing __nullable * __nullable)error;
 
-+ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(STSecurityRSAPadding)padding;
-+ (NSData *)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(STSecurityRSAPadding)padding error:(NSError * __autoreleasing *)error;
++ (NSData * __nullable)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(enum STSecurityRSAPadding)padding NS_SWIFT_UNAVAILABLE("");
++ (NSData * __nullable)dataByDecryptingData:(NSData *)data withPrivateKey:(STSecurityRSAPrivateKey *)key padding:(enum STSecurityRSAPadding)padding error:(NSError * __autoreleasing __nullable * __nullable)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

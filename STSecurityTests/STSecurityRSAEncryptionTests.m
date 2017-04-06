@@ -36,9 +36,12 @@
 
 	{
 		NSError *error = nil;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 		NSData *data = [STSecurityRSAEncryption dataByEncryptingData:nil withPublicKey:publicKey padding:STSecurityRSAPaddingPKCS1 error:&error];
+#pragma clang diagnostic pop
 		XCTAssertNil(data);
-		XCTAssertNil(error);
+		XCTAssertNotNil(error);
 	}
 
 	{

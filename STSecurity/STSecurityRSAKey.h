@@ -11,11 +11,15 @@
 
 @import Foundation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @interface STSecurityRSAPublicKey : NSObject
-- (NSData *)keyData;
+@property (nonatomic,copy,nullable,readonly) NSData *keyData;
 @end
 
 
 @interface STSecurityRSAPrivateKey : NSObject
 @end
+
+NS_ASSUME_NONNULL_END

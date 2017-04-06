@@ -8,8 +8,8 @@
 #import <Foundation/Foundation.h>
 
 
-FOUNDATION_EXPORT double STSecurityVersionNumber;
-FOUNDATION_EXPORT const unsigned char STSecurityVersionString[];
+FOUNDATION_EXPORT double const STSecurityVersionNumber;
+FOUNDATION_EXPORT unsigned char const STSecurityVersionString[];
 
 #import <STSecurity/STSecurityRandomization.h>
 #import <STSecurity/STSecurityKeychainAccess.h>

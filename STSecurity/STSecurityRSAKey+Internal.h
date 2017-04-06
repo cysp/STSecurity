@@ -11,9 +11,11 @@
 
 #import <STSecurity/STSecurityRSAKey.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 @interface STSecurityRSAPublicKey (Internal)
-- (id)initWithKeyRef:(SecKeyRef)keyRef keyData:(NSData *)keyData;
+- (id)initWithKeyRef:(SecKeyRef)keyRef keyData:(NSData * __nullable)keyData;
 - (SecKeyRef)keyRef NS_RETURNS_INNER_POINTER;
 - (NSUInteger)blockSize;
 @end
@@ -24,3 +26,5 @@
 - (SecKeyRef)keyRef NS_RETURNS_INNER_POINTER;
 - (NSUInteger)blockSize;
 @end
+
+NS_ASSUME_NONNULL_END
