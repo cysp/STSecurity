@@ -4,11 +4,24 @@ language: objective-c
 xcode_project: STSecurity.xcodeproj
 xcode_sdk: iphonesimulator
 xcode_scheme: STSecurity
+addons:
+  sonarcloud:
+    organization: "cysp"
+    token:
+      secure: "nEmZnpgXh5Ba9tUCWLcyACYXQKG8XUEdWTMhFN4zJ8/gUCTdshYySWN6gd6sDLdfkCBNohrN1Xn0710jlNJWUiDBuz3hr2RnhAKOqwXbActW63BWRj9h1v8/AI2k7NkBL+/85l7+MbdP3mT43JOyNBq3GYZy/H132pR5phC62TA="
 env:
+  global:
+    - secure: XqWY+wX6j83BGKYI4LFDFHPBv2R2d7MhECwk1y+CRC1y3EfYji8TTTIWR2VQZCgZwRvf8YNva5zWk6ET4BramXdij/zV+guDC9cc6c/ws/ekt4Eiy6UpD5ZoxLPtHSW1+92xa46/udCOfrTh8ODAUv4IDzz74/CYFC6+FqGYjGE=
+  jobs:
     - XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
 branches:
-    only:
-        - master
+  only:
+  - master
 before_script:
-    - gem install xcpretty
-script: set -o pipefail && xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${XCODE_DESTINATION}" | xcpretty
+- gem install xcpretty
+- brew install sonar-scanner
+script:
+  - set -o pipefail && xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme
+    "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${XCODE_DESTINATION}"
+    | xcpretty
+  - sonar-scanner
