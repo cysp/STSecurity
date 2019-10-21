@@ -5,10 +5,10 @@ xcode_project: STSecurity.xcodeproj
 xcode_sdk: iphonesimulator
 xcode_scheme: STSecurity
 env:
-    - TRAVIS_XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
+    - XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 8,OS=11.4"
 branches:
     only:
         - master
 before_script:
     - gem install xcpretty
-script: set -o pipefail && xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${TRAVIS_XCODE_DESTINATION}" | xcpretty
+script: set -o pipefail && xcodebuild test -project "${TRAVIS_XCODE_PROJECT}" -scheme "${TRAVIS_XCODE_SCHEME}" -sdk "${TRAVIS_XCODE_SDK}" -destination "${XCODE_DESTINATION}" | xcpretty
