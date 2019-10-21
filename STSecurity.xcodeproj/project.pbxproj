@@ -398,6 +398,10 @@
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = STSecurityTests;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-objc-messaging-id",
+				);
 			};
 			name = Debug;
 		};
@@ -408,6 +412,10 @@
 				INFOPLIST_FILE = STSecurityTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.chikachow.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = STSecurityTests;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Wno-objc-messaging-id",
+				);
 			};
 			name = Release;
 		};
