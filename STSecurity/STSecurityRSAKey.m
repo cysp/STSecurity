@@ -13,6 +13,7 @@
 # error "STSecurity must be compiled with ARC enabled"
 #endif
 
+@import Foundation;
 @import Security;
 
 #import <STSecurity/STSecurity.h>

@@ -1,0 +1,61 @@
+---
+name: STSecurity
+attributes:
+  ORGANIZATIONNAME: "Scott Talbot"
+options:
+  bundleIdPrefix: org.chikachow
+  deploymentTarget:
+    iOS: "11.4"
+    macOS: "10.14"
+configFiles:
+  Debug: STSecurity/Project-Debug.xcconfig
+  Release: STSecurity/Project-Release.xcconfig
+settings:
+  groups:
+    - swift
+settingGroups:
+  swift:
+    base:
+      HEADER_SEARCH_PATHS:
+        - $(inherited)
+        - $(PROJECT_DIR)
+      RUN_CLANG_STATIC_ANALYZER: YES
+      SWIFT_VERSION: "5.0"
+      SWIFT_OPTIMIZATION_LEVEL: "-O"
+    configs:
+      Debug:
+        SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+      Release:
+        SWIFT_COMPILATION_MODE: wholemodule
+
+targets:
+  STSecurity:
+    type: framework.static
+    platform: iOS
+    scheme:
+      testTargets:
+        - STSecurityTests
+    configFiles:
+      Debug: STSecurity/Target-Debug.xcconfig
+      Release: STSecurity/Target-Release.xcconfig
+    sources:
+      - path: STSecurity
+  STSecurityTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: STSecurityTests
+    dependencies:
+      - framework: STSecurity.framework
+        implicit: true
+        embed: false
+      - target: STSecurityTestHost
+  STSecurityTestHost:
+    type: application
+    platform: iOS
+    attributes:
+      SystemCapabilities:
+        com.apple.Keychain:
+          enabled: 1
+    sources:
+      - path: STSecurityTestHost
