@@ -44,7 +44,7 @@
 		34AB1BAE5276E88BCE6FF4D7 /* STSecurityRSAKey.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAKey.m; sourceTree = "<group>"; };
 		34F811D4EEBC5A07B48AD63D /* STSecurityKeychainAccess+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "STSecurityKeychainAccess+Internal.h"; sourceTree = "<group>"; };
 		378AECA75EB26BB87BF3651D /* Target-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Debug.xcconfig"; sourceTree = "<group>"; };
-		3E08D146A0BBD8E5DC11FE34 /* STSecurityTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = STSecurityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E08D146A0BBD8E5DC11FE34 /* STSecurityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STSecurityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		498B9712BF6EED440D034165 /* STSecurityKeychainAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurityKeychainAccess.h; sourceTree = "<group>"; };
 		57C4BFA8D3FF21797D584727 /* STSecurity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSecurity.h; sourceTree = "<group>"; };
 		5A726C758CF7812CE8F6FDCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,7 +72,7 @@
 		E01354FE59E0C2D2E756208B /* Target-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Target-Release.xcconfig"; sourceTree = "<group>"; };
 		E8DEEEF791A2F81243D64E64 /* STSecurityRandomization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRandomization.m; sourceTree = "<group>"; };
 		FA573CB251345E9E1CB24A10 /* STSecurityRSAEncryption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSecurityRSAEncryption.m; sourceTree = "<group>"; };
-		FC0E67547D009E79D101D96C /* STSecurity.framework */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = STSecurity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC0E67547D009E79D101D96C /* STSecurity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = STSecurity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +247,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				Base,
 			);
 			mainGroup = EAC6299C2C9CA6A52F694F13;
@@ -419,6 +420,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
@@ -458,6 +460,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = org.chikachow.STSecurityTests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -518,6 +521,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
@@ -556,6 +560,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = org.chikachow.STSecurityTests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
