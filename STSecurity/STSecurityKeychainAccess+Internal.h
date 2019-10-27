@@ -10,6 +10,10 @@
 //
 
 
+@import Security;
+
+#import <STSecurity/STSecurity.h>
+
 static inline CFTypeRef STSecurityKeychainItemAccessibilityToCFType(enum STSecurityKeychainItemAccessibility accessibility) {
 	switch (accessibility) {
 		case STSecurityKeychainItemAccessibleWhenUnlocked:

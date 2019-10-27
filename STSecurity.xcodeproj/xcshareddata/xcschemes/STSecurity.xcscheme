@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "1020"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CBC57DC1615D8C000FF15E9"
-               BuildableName = "libSTSecurity.a"
+               BlueprintIdentifier = "DD859FD535E9714036F7D718"
+               BuildableName = "STSecurity.framework"
                BlueprintName = "STSecurity"
-               ReferencedContainer = "container:STSecurity.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CBC57ED1615D8C000FF15E9"
-               BuildableName = "STSecurityTests.xctest"
-               BlueprintName = "STSecurityTests"
                ReferencedContainer = "container:STSecurity.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,29 +28,27 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "DD859FD535E9714036F7D718"
+            BuildableName = "STSecurity.framework"
+            BlueprintName = "STSecurity"
+            ReferencedContainer = "container:STSecurity.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2CBC57ED1615D8C000FF15E9"
+               BlueprintIdentifier = "CF357F52923DE8B03DDA6C61"
                BuildableName = "STSecurityTests.xctest"
                BlueprintName = "STSecurityTests"
                ReferencedContainer = "container:STSecurity.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2CBC57DC1615D8C000FF15E9"
-            BuildableName = "libSTSecurity.a"
-            BlueprintName = "STSecurity"
-            ReferencedContainer = "container:STSecurity.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -79,14 +63,12 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2CBC57DC1615D8C000FF15E9"
-            BuildableName = "libSTSecurity.a"
+            BlueprintIdentifier = "DD859FD535E9714036F7D718"
+            BuildableName = "STSecurity.framework"
             BlueprintName = "STSecurity"
             ReferencedContainer = "container:STSecurity.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -94,15 +76,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2CBC57DC1615D8C000FF15E9"
-            BuildableName = "libSTSecurity.a"
+            BlueprintIdentifier = "DD859FD535E9714036F7D718"
+            BuildableName = "STSecurity.framework"
             BlueprintName = "STSecurity"
             ReferencedContainer = "container:STSecurity.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
